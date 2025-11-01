@@ -1,1 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Momo+Trust+Sans:wght@200..800&display=swap");
 @import "tailwindcss";
+
+.link {
+  @apply transition-transform duration-1000 ease-in-out hover:text-blue-950 cursor-pointer;
+}
+
+.form-group-row {
+  @apply w-full flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5 items-center md:items-start md:justify-between;
+}
+.form-group {
+  @apply w-full flex flex-col;
+}
+.form-label {
+  @apply font-semibold text-gray-800;
+}
+.form-input {
+  @apply w-full p-3 outline-2 outline-gray-400 rounded-xl mt-2 focus:outline-blue-500;
+}
+.form-error {
+  @apply text-red-500 text-sm ml-1;
+}
+
+.btn-primary {
+  @apply w-full bg-blue-600 text-white py-3 rounded-xl transition-transform duration-1000 ease-in-out hover:bg-blue-700 cursor-pointer;
+}

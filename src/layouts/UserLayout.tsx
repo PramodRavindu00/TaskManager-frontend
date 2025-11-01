@@ -8,7 +8,7 @@ const UserLayout = () => {
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Appbar />
-        <main>
+        <main className="grow">
           <Outlet />
         </main>
       </div>
