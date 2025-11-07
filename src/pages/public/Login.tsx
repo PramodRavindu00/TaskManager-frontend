@@ -6,8 +6,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAccessToken } from "@/redux/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -18,10 +21,14 @@ const Login = () => {
   });
   const onSubmit = async (data: LoginFormData) => {
     try {
-      await api.post("/auth/login", data);
+      const res = await api.post("/auth/login", data);
+      const token = res?.data?.accessToken;
+
+      //set access token in the redux state
+      dispatch(setAccessToken(token));
       reset();
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      console.log(error);
     }
   };
   return (
