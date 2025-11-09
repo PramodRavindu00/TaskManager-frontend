@@ -5,7 +5,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import api from "@/apiService";
+import api from "@/utils/axios/apiUtil";
 
 const Signup = () => {
   const {
@@ -18,11 +18,9 @@ const Signup = () => {
     //eslint-disable-next-line
     const { confirmPassword, ...rest } = data;
     try {
-      await api.post("/auth/signup", rest);
+      await api.post("/auth/signup", rest, { public: true });
       reset();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error: unknown) {}
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

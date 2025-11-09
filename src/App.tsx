@@ -10,25 +10,21 @@ import Signup from "./pages/public/Signup";
 import UserLayout from "./layouts/UserLayout";
 import Dashboard from "./pages/user/Dashboard";
 import { Toaster } from "sonner";
-import AuthProvider from "./utils/providers/AuthProvider";
 
 const App = () => {
   return (
     <>
       <Router>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-            <Route element={<UserLayout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route>
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
+          <Route element={<UserLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Router>
       <Toaster position="top-right" richColors duration={2000} />
     </>

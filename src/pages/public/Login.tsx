@@ -1,4 +1,4 @@
-import api from "@/apiService";
+import api from "@/utils/axios/apiUtil";
 import {
   loginSchema,
   type LoginFormData,
@@ -7,10 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAccessToken } from "@/redux/authSlice";
+import { setAccessToken } from "@/utils/redux/authSlice";
+import { setUser } from "@/utils/redux/userSlice";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  const { redirectBasedOnRole } = useAuth();
   const {
     register,
     handleSubmit,
@@ -21,16 +25,20 @@ const Login = () => {
   });
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const res = await api.post("/auth/login", data);
+      const res = await api.post("/auth/login", data, { public: true });
       const token = res?.data?.accessToken;
 
       //set access token in the redux state
       dispatch(setAccessToken(token));
+
+      // const { data: user } = await api.get("/auth/getLoggedUser");
+      // dispatch(setUser(user));
+
       reset();
-    } catch (error: unknown) {
-      console.log(error);
-    }
+      redirectBasedOnRole();
+    } catch (error: unknown) {}
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded p-8 w-full max-w-md">
