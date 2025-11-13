@@ -10,8 +10,19 @@ import Signup from "./pages/public/Signup";
 import UserLayout from "./layouts/UserLayout";
 import Dashboard from "./pages/user/Dashboard";
 import { Toaster } from "sonner";
+import { useEffect } from "react";
+import Spinner from "./components/Spinner";
+import { useAuth } from "./hooks/useAuth";
 
 const App = () => {
+  const { isCheckingAuth, skipLogin } = useAuth();
+  useEffect(() => {
+    skipLogin();
+  }, [skipLogin]);
+
+  if (isCheckingAuth) {
+    return <Spinner fullScreen={true} />;
+  }
   return (
     <>
       <Router>

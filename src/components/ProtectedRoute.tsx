@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
-// import Spinner from "./Spinner";
+import Spinner from "./Spinner";
+import { useNavigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -7,14 +8,15 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children, roles }: ProtectedRouteProps) => {
-  const {  isAuthenticated, loggedUserRole } = useAuth();
+  const { isAuthenticated, loggedUserRole, isCheckingAuth } = useAuth();
+  const navigate = useNavigate();
 
-//   if (isChecking) {
-//     return <Spinner fullScreen={true} />;
-//   }
+  if (isCheckingAuth) {
+    return <Spinner fullScreen={true} />;
+  }
 
   if (!isAuthenticated) {
-    window.location.href = "/login";
+    navigate("/login", { replace: true });
     return null;
   }
 
@@ -24,7 +26,7 @@ const ProtectedRoute = ({ children, roles }: ProtectedRouteProps) => {
       : loggedUserRole === roles;
 
     if (!hasRequiredRole) {
-      window.location.href = "/unAuthorized";
+      navigate("/unAuthorized", { replace: true });
       return null;
     }
   }

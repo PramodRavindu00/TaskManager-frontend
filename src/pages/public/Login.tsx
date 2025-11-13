@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setAccessToken } from "@/utils/redux/authSlice";
 import { setUser } from "@/utils/redux/userSlice";
 import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -31,12 +32,14 @@ const Login = () => {
       //set access token in the redux state
       dispatch(setAccessToken(token));
 
-      // const { data: user } = await api.get("/auth/getLoggedUser");
-      // dispatch(setUser(user));
+      const { data: user } = await api.get("/auth/loggedUser");
+      dispatch(setUser(user));
 
       reset();
-      redirectBasedOnRole();
-    } catch (error: unknown) {}
+      redirectBasedOnRole(user?.role);
+    } catch (error: unknown) {
+      toast.error("Login Failed");
+    }
   };
 
   return (
