@@ -10,35 +10,38 @@ import Signup from "./pages/public/Signup";
 import UserLayout from "./layouts/UserLayout";
 import Dashboard from "./pages/user/Dashboard";
 import { Toaster } from "sonner";
-import { useEffect } from "react";
-import Spinner from "./components/Spinner";
-import { useAuth } from "./hooks/useAuth";
+
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import Profile from "./pages/common/Profile";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-  const { isCheckingAuth, skipLogin } = useAuth();
-  useEffect(() => {
-    skipLogin();
-  }, [skipLogin]);
-
-  if (isCheckingAuth) {
-    return <Spinner fullScreen={true} />;
-  }
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
 
           <Route element={<UserLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route element={<ProtectedRoute allowedRoles={["User"]} />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+            <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            </Route>
+            <Route
+              element={<ProtectedRoute allowedRoles={["User", "Admin"]} />}
+            >
+              <Route path="/profile" element={<Profile />} />
+            </Route>
           </Route>
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
       <Toaster position="top-right" richColors duration={2000} />
-    </>
+    </div>
   );
 };
 

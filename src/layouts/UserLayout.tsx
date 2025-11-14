@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Appbar from "../components/Appbar";
 import Sidebar from "../components/Sidebar";
+import Footer from "@/components/Footer";
 
 const UserLayout = () => {
   return (
@@ -8,9 +9,11 @@ const UserLayout = () => {
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Appbar />
-        <main className="grow">
+
+        <main className="flex grow p-5">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </div>
   );

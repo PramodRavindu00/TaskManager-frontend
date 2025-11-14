@@ -5,17 +5,16 @@ import {
 } from "@/utils/formValidations/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAccessToken } from "@/utils/redux/authSlice";
 import { setUser } from "@/utils/redux/userSlice";
-import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
 
 const Login = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  const { redirectBasedOnRole } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,11 +32,12 @@ const Login = () => {
       dispatch(setAccessToken(token));
 
       const { data: user } = await api.get("/auth/loggedUser");
-      dispatch(setUser(user));
+      dispatch(setUser(user)); //set user in redux
 
       reset();
-      redirectBasedOnRole(user?.role);
+      navigate(getDefaultRouteForRole(user?.role), { replace: true });
     } catch (error: unknown) {
+      console.error(error);
       toast.error("Login Failed");
     }
   };

@@ -1,37 +1,24 @@
-import { useAuth } from "@/hooks/useAuth";
-import Spinner from "./Spinner";
-import { useNavigate } from "react-router-dom";
+import {
+  selectIsAuthenticated,
+  selectLoggedUserRole,
+} from "@/utils/redux/selectors";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
-  roles: string | string[];
+  allowedRoles: string[];
 }
 
-const ProtectedRoute = ({ children, roles }: ProtectedRouteProps) => {
-  const { isAuthenticated, loggedUserRole, isCheckingAuth } = useAuth();
-  const navigate = useNavigate();
+const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const loggedUserRole = useSelector(selectLoggedUserRole);
 
-  if (isCheckingAuth) {
-    return <Spinner fullScreen={true} />;
-  }
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
 
-  if (!isAuthenticated) {
-    navigate("/login", { replace: true });
-    return null;
-  }
+  if (!allowedRoles.includes(loggedUserRole!))
+    return <Navigate to="/unauthorized" replace />;
 
-  if (roles) {
-    const hasRequiredRole = Array.isArray(roles)
-      ? roles.includes(loggedUserRole || "")
-      : loggedUserRole === roles;
-
-    if (!hasRequiredRole) {
-      navigate("/unAuthorized", { replace: true });
-      return null;
-    }
-  }
-
-  return <>{children}</>;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
