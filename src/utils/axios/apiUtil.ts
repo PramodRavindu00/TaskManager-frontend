@@ -4,7 +4,11 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from "axios";
 import { store } from "@/utils/redux/store";
-import { setAccessToken, clearAuth } from "@/utils/redux/authSlice";
+import {
+  setAccessToken,
+  clearAuth,
+  setIsAuthenticating,
+} from "@/utils/redux/authSlice";
 import { clearUser } from "@/utils/redux/userSlice";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "http://localhost:5000";
@@ -50,6 +54,7 @@ api.interceptors.response.use(
         const newAccessToken = refreshResponse.data.accessToken;
 
         store.dispatch(setAccessToken(newAccessToken));
+        store.dispatch(setIsAuthenticating(false));
 
         if (!originalRequest.headers) {
           originalRequest.headers = {};

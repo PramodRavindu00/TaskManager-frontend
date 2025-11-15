@@ -1,4 +1,3 @@
-import api from "@/utils/axios/apiUtil";
 import {
   loginSchema,
   type LoginFormData,
@@ -6,15 +5,23 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setAccessToken } from "@/utils/redux/authSlice";
+import api from "@/utils/axios/apiUtil";
+import { useDispatch, useSelector } from "react-redux";
+import { setAccessToken, setIsAuthenticating } from "@/utils/redux/authSlice";
 import { setUser } from "@/utils/redux/userSlice";
-import { toast } from "sonner";
 import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import {
+  selectIsAuthenticated,
+  selectLoggedUserRole,
+} from "@/utils/redux/selectors";
+import type { UserRole } from "@/utils/constants/types";
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const loggedUserRole = useSelector(selectLoggedUserRole);
+
   const {
     register,
     handleSubmit,
@@ -23,6 +30,10 @@ const Login = () => {
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onSubmit = async (data: LoginFormData) => {
     try {
       const res = await api.post("/auth/login", data, { public: true });
@@ -36,12 +47,20 @@ const Login = () => {
 
       reset();
       navigate(getDefaultRouteForRole(user?.role), { replace: true });
-    } catch (error: unknown) {
-      console.error(error);
+    } catch {
       toast.error("Login Failed");
+    } finally {
+      dispatch(setIsAuthenticating(false));
     }
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(getDefaultRouteForRole(loggedUserRole as UserRole), {
+        replace: true,
+      });
+    }
+  }, [isAuthenticated, navigate, loggedUserRole]);
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded p-8 w-full max-w-md">

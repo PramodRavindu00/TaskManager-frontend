@@ -10,7 +10,7 @@ const Appbar = () => {
     navigate("/profile");
   };
   return (
-    <header className="w-full flex space-x-5 justify-end items-start p-5">
+    <header className="w-full flex space-x-5 justify-end items-start p-5 bg-amber-400">
       <FaBell className="text-lg" />
       <div className="flex flex-col items-end">
         <FaUser onClick={goToProfile} />

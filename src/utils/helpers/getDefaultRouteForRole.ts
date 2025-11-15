@@ -1,4 +1,5 @@
-type UserRole = "Admin" | "User";
+import type { UserRole } from "../constants/types";
+
 export const getDefaultRouteForRole = (role: UserRole) => {
   switch (role) {
     case "Admin":
