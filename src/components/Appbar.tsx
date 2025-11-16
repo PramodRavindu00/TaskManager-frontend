@@ -1,10 +1,10 @@
-import { selectLoggedUser } from "@/utils/redux/selectors";
+// import { selectLoggedUser } from "@/utils/redux/selectors";
 import { FaBell, FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Appbar = () => {
-  const user = useSelector(selectLoggedUser);
+  // const user = useSelector(selectLoggedUser);
   const navigate = useNavigate();
   const goToProfile = () => {
     navigate("/profile");

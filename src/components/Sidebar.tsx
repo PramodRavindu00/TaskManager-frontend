@@ -9,7 +9,7 @@ import {
   adminSideBarItems,
   commonSideBarItems,
   userSideBarItems,
-} from "@/utils/helpers/sideBarItems";
+} from "@/utils/constants/sideBarItems";
 
 const Sidebar = () => {
   const loggedUserRole = useSelector(selectLoggedUserRole);

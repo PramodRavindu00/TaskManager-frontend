@@ -9,6 +9,9 @@ export default defineConfig({
   server: {
     port: env.APP_PORT ? parseInt(env.APP_PORT) : 3000, //configuring development server port
   },
+  preview: {
+    port: env.APP_PORT ? parseInt(env.APP_PORT) : 3000,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

@@ -14,13 +14,13 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Profile from "./pages/common/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnAuthorized from "./pages/Unauthorized";
-import Init from "./components/Init";
+import AuthWrapper from "./components/AuthWrapper";
 
 const App = () => {
   return (
     <div className="overflow-x-hidden">
       <Router>
-        <Init>
+        <AuthWrapper>
           <Routes>
             {/* public routes */}
             <Route path="/" element={<Navigate to="/login" replace />} />
@@ -29,28 +29,34 @@ const App = () => {
 
             <Route path="*" element={<NotFound />} />
 
-            {/* protected routes */}
-            <Route element={<UserLayout />}>
-              {/* user routes */}
-              <Route element={<ProtectedRoute allowedRoles={["User"]} />}>
+            {/* protected routes with valid authentication and user roles */}
+            {/* User routes */}
+            <Route element={<ProtectedRoute allowedRoles={["User"]} />}>
+              <Route element={<UserLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
               </Route>
+            </Route>
 
-              {/* admin routes */}
-              <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
+            {/* admin routes */}
+            <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
+              <Route element={<UserLayout />}>
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
               </Route>
+            </Route>
 
-              {/* common routes */}
-              <Route
-                element={<ProtectedRoute allowedRoles={["User", "Admin"]} />}
-              >
+            {/* admin + user routes */}
+            <Route
+              element={<ProtectedRoute allowedRoles={["Admin", "User"]} />}
+            >
+              <Route element={<UserLayout />}>
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/unauthorized" element={<UnAuthorized />} />
               </Route>
+
+              {/* admin + user route without layout */}
+              <Route path="/unauthorized" element={<UnAuthorized />} />
             </Route>
           </Routes>
-        </Init>
+        </AuthWrapper>
       </Router>
       <Toaster position="top-right" richColors duration={2000} />
     </div>

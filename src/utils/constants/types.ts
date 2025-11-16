@@ -21,9 +21,9 @@ export interface UserState {
   data: User | null;
 }
 
-export interface SidebarItems {
+export interface SidebarItem {
   title: string;
   path?: string;
   icon?: IconType;
-  children?: SidebarItems[];
+  children?: SidebarItem[];
 }

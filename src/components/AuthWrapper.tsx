@@ -5,19 +5,28 @@ import {
   selectIsAuthenticating,
 } from "@/utils/redux/selectors";
 import { setUser } from "@/utils/redux/userSlice";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import { publicRoutes } from "@/utils/constants/constants";
 
-const Init = ({ children }: { children: React.ReactNode }) => {
+const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
   const isAuthenticating = useSelector(selectIsAuthenticating);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const initialized = useRef(false);
   useEffect(() => {
-    if (isAuthenticated) {
+    const currentPath = location.pathname.replace(/\/+$/, "");
+    const isPublic = publicRoutes.includes(currentPath);
+
+    if (
+      (!isAuthenticated && isPublic) ||
+      isAuthenticated ||
+      initialized.current
+    ) {
       dispatch(setIsAuthenticating(false));
       return;
     }
@@ -30,9 +39,10 @@ const Init = ({ children }: { children: React.ReactNode }) => {
         const { data: user } = await api.get("/auth/loggedUser");
         dispatch(setUser(user));
       } catch {
-        navigate("/login");
+        navigate("/login", { replace: true });
       } finally {
         dispatch(setIsAuthenticating(false));
+        initialized.current = true;
       }
     };
 
@@ -44,4 +54,4 @@ const Init = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-export default Init;
+export default AuthWrapper;
