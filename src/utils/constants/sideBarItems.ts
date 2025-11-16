@@ -1,8 +1,51 @@
+import { FaDiagramProject, FaTableColumns } from "react-icons/fa6";
 import type { SidebarItem } from "./types";
-import { FaUser } from "react-icons/fa";
+import { FaTachometerAlt, FaTasks, FaUser } from "react-icons/fa";
 
-export const userSideBarItems: SidebarItem[] = [];
-export const adminSideBarItems: SidebarItem[] = [];
+export const userSideBarItems: SidebarItem[] = [
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: FaTachometerAlt,
+  },
+  {
+    title: "Work Board",
+    path: "/board",
+    icon: FaTableColumns,
+  },
+  {
+    title: "Task",
+    path: "/tasks",
+    icon: FaTasks,
+  },
+  {
+    title: "Project",
+    path: "/board",
+    icon: FaDiagramProject,
+  },
+];
+export const adminSideBarItems: SidebarItem[] = [
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: FaTachometerAlt,
+  },
+  {
+    title: "Work Board",
+    path: "/board",
+    icon: FaTableColumns,
+  },
+  {
+    title: "Task",
+    path: "/tasks",
+    icon: FaTasks,
+  },
+  {
+    title: "Project",
+    path: "/board",
+    icon: FaDiagramProject,
+  },
+];
 export const commonSideBarItems: SidebarItem[] = [
   {
     title: "Profile",

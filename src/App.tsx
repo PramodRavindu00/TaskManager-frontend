@@ -29,6 +29,10 @@ const App = () => {
 
             <Route path="*" element={<NotFound />} />
 
+            <Route element={<UserLayout />}>
+              <Route path="/test" element={<AdminDashboard />} />
+            </Route>
+
             {/* protected routes with valid authentication and user roles */}
             {/* User routes */}
             <Route element={<ProtectedRoute allowedRoles={["User"]} />}>

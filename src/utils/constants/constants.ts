@@ -4,4 +4,5 @@ export const publicRoutes: string[] = [
   "/signup",
   "/notFound",
   "/unauthorized",
+  "/test",
 ];
