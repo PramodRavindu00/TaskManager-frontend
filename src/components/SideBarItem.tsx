@@ -1,32 +1,69 @@
-// import type { SidebarItem } from "@/utils/constants/types";
-// import { useState } from "react";
+import { useState } from "react";
+import type { SidebarItem } from "@/utils/constants/types";
+import { Link } from "react-router-dom";
+import { FaChevronDown } from "react-icons/fa6";
 
-// export const SideBarItem = ({ item, open }: { item: SidebarItem; open: boolean }) => {
-//   const [expanded, setExpanded] = useState(false);
+const SideBarItem = ({ item }: { item: SidebarItem }) => {
+  const [open, setOpen] = useState(false);
 
-//   return (
-//     <li className="relative">
-//       <div
-//         className="px-3 py-2 my-2 hover:bg-blue-800 rounded-md duration-300 cursor-pointer flex gap-2 items-center"
-//         onClick={() => setExpanded(!expanded)}
-//       >
-//         {item.icon}
-//         <span className={`${!open && "w-0 overflow-hidden"} duration-500`}>
-//           {item.label}
-//         </span>
-//         {item.children && open && (
-//           <span className="ml-auto">{expanded ? "▾" : "▸"}</span>
-//         )}
-//       </div>
+  const handleToggle = () => {
+    if (item.children) {
+      setOpen((prev) => !prev);
+    }
+  };
 
-//       {/* Recursive rendering of children */}
-//       {item.children && expanded && (
-//         <ul className="ml-6 border-l border-blue-400">
-//           {item.children.map((child: any, idx: number) => (
-//             <SidebarItem key={idx} item={child} open={open} />
-//           ))}
-//         </ul>
-//       )}
-//     </li>
-//   );
-// };
+  return (
+    <div className="w-full">
+      {/* Parent Row */}
+      {item.children ? (
+        <button
+          onClick={handleToggle}
+          className="flex w-full flex-row items-center justify-between gap-x-3 px-3 py-2 cursor-pointer rounded-lg hover:bg-black/30"
+        >
+          <span className="flex items-center gap-x-3">
+            {item.icon && <item.icon />}
+            {item.title}
+          </span>
+
+          <FaChevronDown
+            className={`transition-transform duration-700 ${
+              open ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </button>
+      ) : (
+        <Link
+          to={item.path ?? "#"}
+          key={item.title}
+          className="flex flex-row items-center gap-x-3 px-3 py-2 cursor-pointer rounded-lg hover:bg-black/30"
+        >
+          {item.icon && <item.icon />}
+          {item.title}
+        </Link>
+      )}
+
+      <div
+        className={`ml-5 mt-1 flex flex-col gap-1 transition-all duration-300 overflow-hidden
+    ${
+      open
+        ? "max-h-40 opacity-100 translate-y-0"
+        : "max-h-0 opacity-0 -translate-y-2"
+    }
+  `}
+      >
+        {item.children?.map((child) => (
+          <Link
+            key={child.title}
+            to={child.path ?? "#"}
+            className="flex flex-row items-center gap-x-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-black/20"
+          >
+            {child.icon && <child.icon />}
+            {child.title}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default SideBarItem;

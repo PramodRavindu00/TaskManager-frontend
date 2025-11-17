@@ -13,6 +13,7 @@ import {
 import { FaPersonWalkingArrowRight } from "react-icons/fa6";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import SideBarItem from "./SideBarItem";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ const Sidebar = () => {
   return (
     <>
       <FaBars
-        className="block lg:hidden top-0 left-0 ml-5 mt-5 cursor-pointer fixed lg:relative"
+        className=" lg:hidden top-5 left-5  cursor-pointer fixed lg:relative"
         onClick={() => setOpen(true)}
       />
       <nav
@@ -51,37 +52,24 @@ const Sidebar = () => {
           w-full
           sm:w-1/3
           lg:w-64
-
           bg-white dark:bg-black
+          shadow-2xl
         `}
       >
-        <div className="flex justify-end lg:hidden mb-5">
-          <button className="cursor-pointer" onClick={() => setOpen(false)}>
+        <div className="flex justify-between  px-5 pb-5 items-center">
+          <h2 className="text-4xl">Taskium</h2>
+          <button
+            className="cursor-pointer lg:hidden"
+            onClick={() => setOpen(false)}
+          >
             <FaTimes />
           </button>
         </div>
 
-        <ul className="flex flex-col gap-y-1">
+        <ul className="flex flex-col gap-y-1 px-5">
           {items.map((item) => (
-            <li
-              key={item.title}
-              className="w-full flex flex-row items-center gap-x-3 p-2 cursor-pointer  rounded"
-            >
-              {item.icon && <item.icon />}
-              <span>{item.title}</span>
-
-              {item.children && (
-                <ul className="ml-5 mt-1 space-y-1">
-                  {item.children.map((sub) => (
-                    <li key={sub.title} className="text-sm">
-                      {sub.title}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+            <SideBarItem item={item} />
           ))}
-
           <button
             onClick={handleLogOut}
             className="w-full flex flex-row items-center gap-x-3 cursor-pointer p-2 rounded"

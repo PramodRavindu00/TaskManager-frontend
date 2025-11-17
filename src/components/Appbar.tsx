@@ -9,11 +9,17 @@ const Appbar = () => {
   return (
     <header className="w-full flex space-x-5 justify-end items-center p-5">
       {mode && mode === "dark" ? (
-        <FaLightbulb onClick={() => dispatch(toggleTheme())} />
+        <FaLightbulb
+          onClick={() => dispatch(toggleTheme())}
+          className="cursor-pointer"
+        />
       ) : (
-        <FaMoon onClick={() => dispatch(toggleTheme())} />
+        <FaMoon
+          onClick={() => dispatch(toggleTheme())}
+          className="cursor-pointer"
+        />
       )}
-      <FaBell className="text-lg" />
+      <FaBell className="cursor-pointer" />
     </header>
   );
 };
