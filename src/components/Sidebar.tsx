@@ -40,27 +40,19 @@ const Sidebar = () => {
   return (
     <>
       <FaBars
-        className="block lg:hidden ml-5 mt-5 cursor-pointer"
+        className="block lg:hidden top-0 left-0 ml-5 mt-5 cursor-pointer fixed lg:relative"
         onClick={() => setOpen(true)}
       />
-
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/40 lg:hidden z-40"
-          onClick={() => setOpen(false)}
-        ></div>
-      )}
-
       <nav
         className={`
-          fixed top-0 left-0  z-50 flex flex-col bg-white p-5 transition-transform duration-300
+          h-screen fixed top-0 left-0  z-50 flex flex-col py-5 transition-transform duration-700 ease-in-out
           lg:translate-x-0 lg:relative
-        
           ${open ? "translate-x-0" : "-translate-x-full"}
-          
           w-full
           sm:w-1/3
           lg:w-64
+
+          bg-white dark:bg-black
         `}
       >
         <div className="flex justify-end lg:hidden mb-5">
@@ -73,13 +65,13 @@ const Sidebar = () => {
           {items.map((item) => (
             <li
               key={item.title}
-              className="w-full flex flex-row items-center gap-x-3 p-2 cursor-pointer bg-amber-100 rounded"
+              className="w-full flex flex-row items-center gap-x-3 p-2 cursor-pointer  rounded"
             >
               {item.icon && <item.icon />}
               <span>{item.title}</span>
 
               {item.children && (
-                <ul className="ml-6 mt-1 space-y-1">
+                <ul className="ml-5 mt-1 space-y-1">
                   {item.children.map((sub) => (
                     <li key={sub.title} className="text-sm">
                       {sub.title}
@@ -92,7 +84,7 @@ const Sidebar = () => {
 
           <button
             onClick={handleLogOut}
-            className="w-full flex flex-row items-center gap-x-3 cursor-pointer bg-amber-100 p-2 rounded"
+            className="w-full flex flex-row items-center gap-x-3 cursor-pointer p-2 rounded"
           >
             <FaPersonWalkingArrowRight />
             Log Out

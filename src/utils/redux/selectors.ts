@@ -8,3 +8,5 @@ export const selectIsAuthenticating = (state: RootState) =>
 
 export const selectLoggedUser = (state: RootState) => state.user.data;
 export const selectLoggedUserRole = (state: RootState) => state.user.data?.role;
+
+export const selectTheme = (state: RootState) => state.theme;

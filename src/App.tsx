@@ -15,10 +15,18 @@ import Profile from "./pages/common/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnAuthorized from "./pages/Unauthorized";
 import AuthWrapper from "./components/AuthWrapper";
-
+import { useSelector } from "react-redux";
+import { selectTheme } from "./utils/redux/selectors";
+import { useEffect } from "react";
 const App = () => {
+  const theme = useSelector(selectTheme);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden bg-white text-black dark:bg-black dark:text-white">
       <Router>
         <AuthWrapper>
           <Routes>

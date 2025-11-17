@@ -27,3 +27,5 @@ export interface SidebarItem {
   icon?: IconType;
   children?: SidebarItem[];
 }
+
+export type Theme = "light" | "dark";
