@@ -7,7 +7,7 @@ const Appbar = () => {
   const dispatch = useDispatch();
   const mode = useSelector(selectTheme);
   return (
-    <header className="w-full flex space-x-5 justify-end items-center p-5">
+    <header className="w-full flex space-x-5 justify-end items-center p-5  bg-secondary">
       {mode && mode === "dark" ? (
         <FaLightbulb
           onClick={() => dispatch(toggleTheme())}

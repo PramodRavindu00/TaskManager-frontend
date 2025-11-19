@@ -13,7 +13,7 @@ import {
 import { FaPersonWalkingArrowRight } from "react-icons/fa6";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-import SideBarItem from "./SideBarItem";
+import SideBarItem from "./SidebarItem";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -51,9 +51,10 @@ const Sidebar = () => {
           ${open ? "translate-x-0" : "-translate-x-full"}
           w-full
           sm:w-1/3
-          lg:w-64
-          bg-white dark:bg-black
-          shadow-2xl
+          lg:w-52
+         bg-secondary
+          border-r
+         border-main
         `}
       >
         <div className="flex justify-between  px-5 pb-5 items-center">

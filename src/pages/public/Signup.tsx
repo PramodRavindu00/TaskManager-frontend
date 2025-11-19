@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import api from "@/utils/axios/apiUtil";
+import { toast } from "sonner";
 
 const Signup = () => {
   const {
@@ -20,11 +21,13 @@ const Signup = () => {
     try {
       await api.post("/auth/signup", rest, { public: true });
       reset();
-    } catch (error: unknown) {}
+    } catch {
+      toast.error("Sign Up Failed");
+    }
   };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded p-8 w-full max-w-xl">
+    <div className="flex items-center justify-center min-h-screen bg-main">
+      <div className="bg-secondary shadow-lg rounded p-8 w-full max-w-xl">
         <h1 className="text-2xl font-bold mb-6 text-center">SignUp</h1>
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group-row">
@@ -37,7 +40,7 @@ const Signup = () => {
                 {...register("firstName")}
                 placeholder="First Name"
                 className={`form-input ${
-                  errors.firstName ? "form-input-error" : "form-input-focus"
+                  errors.firstName && "form-input-error"
                 }`}
               />
               {errors.firstName && (
@@ -53,7 +56,7 @@ const Signup = () => {
                 {...register("lastName")}
                 placeholder="Last Name"
                 className={`form-input ${
-                  errors.lastName ? "form-input-error" : "form-input-focus"
+                  errors.lastName && "form-input-error"
                 }`}
               />
               {errors.lastName && (
@@ -70,9 +73,7 @@ const Signup = () => {
               type="email"
               {...register("email")}
               placeholder="Email"
-              className={`form-input ${
-                errors.email ? "form-input-error" : "form-input-focus"
-              }`}
+              className={`form-input ${errors.email && "form-input-error"}`}
             />
             {errors.email && (
               <p className="form-error">{errors.email.message}</p>
@@ -88,7 +89,7 @@ const Signup = () => {
                 {...register("password")}
                 placeholder="Password"
                 className={`form-input ${
-                  errors.password ? "form-input-error" : "form-input-focus"
+                  errors.password && "form-input-error"
                 }`}
               />
               {errors.password && (
@@ -104,9 +105,7 @@ const Signup = () => {
                 {...register("confirmPassword")}
                 placeholder="Confirm Password"
                 className={`form-input ${
-                  errors.confirmPassword
-                    ? "form-input-error"
-                    : "form-input-focus"
+                  errors.confirmPassword && "form-input-error"
                 }`}
               />
               {errors.confirmPassword && (
@@ -119,9 +118,9 @@ const Signup = () => {
             Register
           </button>
         </form>
-        <p className="mt-6 text-center text-gray-600">
+        <p className="mt-6 text-center text-secondary">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 font-semibold">
+          <Link to="/login" className="text-blue-600 hover:text-blue-800 font-semibold">
             Login
           </Link>
         </p>

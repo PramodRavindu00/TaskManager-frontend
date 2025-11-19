@@ -62,8 +62,8 @@ const Login = () => {
     }
   }, [isAuthenticated, navigate, loggedUserRole]);
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded p-8 w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-main">
+      <div className="shadow-lg rounded p-8 w-full max-w-md bg-secondary">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
@@ -74,9 +74,7 @@ const Login = () => {
               type="email"
               {...register("email")}
               placeholder="Email"
-              className={`form-input ${
-                errors.email ? "form-input-error" : "form-input-focus"
-              }`}
+              className={`form-input ${errors.email && "form-input-error"}`}
             />
             {errors.email && (
               <p className="form-error">{errors.email.message}</p>
@@ -90,9 +88,7 @@ const Login = () => {
               type="password"
               {...register("password")}
               placeholder="Password"
-              className={`form-input ${
-                errors.password ? "form-input-error" : "form-input-focus"
-              }`}
+              className={`form-input ${errors.password && "form-input-error"}`}
             />
             {errors.password && (
               <p className="form-error">{errors.password.message}</p>
@@ -102,9 +98,12 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="mt-6 text-center text-gray-600">
+        <p className="mt-6 text-center text-secondary">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 font-semibold">
+          <Link
+            to="/login"
+            className="text-blue-600 hover:text-blue-800 font-semibold"
+          >
             Sign Up
           </Link>
         </p>

@@ -26,7 +26,7 @@ const App = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
   return (
-    <div className="overflow-x-hidden bg-white text-black dark:bg-black dark:text-white">
+    <div className="overflow-x-hidden bg-main text-main">
       <Router>
         <AuthWrapper>
           <Routes>
@@ -36,10 +36,6 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
 
             <Route path="*" element={<NotFound />} />
-
-            <Route element={<UserLayout />}>
-              <Route path="/test" element={<AdminDashboard />} />
-            </Route>
 
             {/* protected routes with valid authentication and user roles */}
             {/* User routes */}
