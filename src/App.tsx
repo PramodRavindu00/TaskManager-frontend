@@ -26,7 +26,7 @@ const App = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
   return (
-    <div className="overflow-x-hidden bg-main text-main">
+    <div className="overflow-x-hidden bg-main text-main scrollbar-hide">
       <Router>
         <AuthWrapper>
           <Routes>
