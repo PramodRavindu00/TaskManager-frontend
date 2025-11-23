@@ -23,51 +23,6 @@ export const userSideBarItems: SidebarItem[] = [
     ],
   },
   {
-    title: "Task",
-    path: "/tasks",
-    icon: FaTasks,
-    children: [
-      { title: "Add Task", path: "/tasks/new" },
-      { title: "All Tasks", path: "/tasks/new" },
-    ],
-  },
-  {
-    title: "Task",
-    path: "/tasks",
-    icon: FaTasks,
-    children: [
-      { title: "Add Task", path: "/tasks/new" },
-      { title: "All Tasks", path: "/tasks/new" },
-    ],
-  },
-  {
-    title: "Task",
-    path: "/tasks",
-    icon: FaTasks,
-    children: [
-      { title: "Add Task", path: "/tasks/new" },
-      { title: "All Tasks", path: "/tasks/new" },
-    ],
-  },
-  {
-    title: "Task",
-    path: "/tasks",
-    icon: FaTasks,
-    children: [
-      { title: "Add Task", path: "/tasks/new" },
-      { title: "All Tasks", path: "/tasks/new" },
-    ],
-  },
-  {
-    title: "Task",
-    path: "/tasks",
-    icon: FaTasks,
-    children: [
-      { title: "Add Task", path: "/tasks/new" },
-      { title: "All Tasks", path: "/tasks/new" },
-    ],
-  },
-  {
     title: "Project",
     path: "/board",
     icon: FaDiagramProject,
