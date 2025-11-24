@@ -114,46 +114,59 @@
   }
 }
 
-.link {
-  @apply transition-transform duration-1000 ease-in-out hover:text-blue-950 cursor-pointer;
-}
-
-.form-group-row {
-  @apply w-full flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5 items-center md:items-start md:justify-between;
-}
-.form-group {
-  @apply w-full flex flex-col;
-}
-.form-label {
-  @apply font-semibold;
-  color: var(--color-text-secondary);
-}
-
-.form-input {
-  @apply w-full p-3 outline-2 rounded-xl mt-2;
-  outline-color: var(--color-outline-secondary);
-
-  &:focus {
-    outline-color: var(--color-outline-primary);
+@layer components {
+  .link {
+    @apply transition-transform duration-1000 ease-in-out hover:text-blue-950 cursor-pointer;
   }
-}
 
-.form-input-error {
-  outline-color: var(--color-outline-danger);
-  &:focus {
+  .form-group-row {
+    @apply w-full flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5 items-center md:items-start md:justify-between;
+  }
+  .form-group {
+    @apply w-full flex flex-col;
+  }
+  .form-label {
+    @apply font-semibold;
+    color: var(--color-text-secondary);
+  }
+
+  .form-input {
+    @apply w-full p-3 outline-2 rounded-xl mt-2;
+    outline-color: var(--color-outline-secondary);
+
+    &:focus {
+      outline-color: var(--color-outline-primary);
+    }
+    &:-webkit-autofill {
+      -webkit-box-shadow: transparent inset;
+      -webkit-text-fill-color: var(--color-text-main);
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    /* Firefox autofill */
+    &:-moz-autofill {
+      box-shadow: transparent inset;
+      -moz-text-fill-color: var(--color-text-main);
+    }
+  }
+
+  .form-input-error {
     outline-color: var(--color-outline-danger);
+    &:focus {
+      outline-color: var(--color-outline-danger);
+    }
   }
-}
 
-.form-error {
-  @apply text-sm ml-1 mt-1;
-  color: var(--color-text-error);
-}
+  .form-error {
+    @apply text-sm ml-1 mt-1;
+    color: var(--color-text-error);
+  }
 
-.btn-primary {
-  @apply w-full text-white py-3 rounded-xl transition-transform duration-1000 ease-in-out  cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
-  background-color: var(--color-btn-primary-bg);
-  &:hover {
-    @apply hover:bg-blue-700;
+  .btn-primary {
+    @apply w-full text-white py-3 rounded-xl transition-transform duration-1000 ease-in-out  cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
+    background-color: var(--color-btn-primary-bg);
+    &:hover {
+      @apply hover:bg-blue-700;
+    }
   }
 }

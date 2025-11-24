@@ -10,21 +10,20 @@ export const userSideBarItems: SidebarItem[] = [
   },
   {
     title: "Work Board",
-    path: "/board",
     icon: FaTableColumns,
-  },
-  {
-    title: "Task",
-    path: "/tasks",
-    icon: FaTasks,
     children: [
-      { title: "Add Task", path: "/tasks/new" },
-      { title: "All Tasks", path: "/tasks/new" },
+      { title: "Personal", path: "/work-board/personal" },
+      { title: "Project", path: "/work-board/projects" },
     ],
   },
   {
-    title: "Project",
-    path: "/board",
+    title: "Tasks",
+    path: "/tasks",
+    icon: FaTasks,
+  },
+  {
+    title: "Projects",
+    path: "/projects",
     icon: FaDiagramProject,
   },
 ];

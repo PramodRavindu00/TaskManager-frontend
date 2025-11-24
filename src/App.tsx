@@ -42,6 +42,19 @@ const App = () => {
             <Route element={<ProtectedRoute allowedRoles={["User"]} />}>
               <Route element={<UserLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/work-board/personal" element={<Dashboard />} />
+                <Route path="/work-board/projects" element={<Dashboard />} />
+                <Route
+                  path="/work-board/projects/:projectId"
+                  element={<Dashboard />}
+                />
+                <Route path="/tasks" element={<Dashboard />} />
+                <Route path="/tasks/add" element={<Dashboard />} />
+                <Route path="/tasks/:taskId" element={<Dashboard />} />
+
+                <Route path="/projects" element={<Dashboard />} />
+                <Route path="/projects/add" element={<Dashboard />} />
+                <Route path="/projects/:projectId" element={<Dashboard />} />
               </Route>
             </Route>
 

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import api from "@/utils/axios/apiUtil";
-import { toast } from "sonner";
+import { handleApiError } from "@/utils/helpers/handleApiError";
 
 const Signup = () => {
   const {
@@ -21,8 +21,8 @@ const Signup = () => {
     try {
       await api.post("/auth/signup", rest, { public: true });
       reset();
-    } catch {
-      toast.error("Sign Up Failed");
+    } catch (error: unknown) {
+      handleApiError(error);
     }
   };
   return (
@@ -120,7 +120,10 @@ const Signup = () => {
         </form>
         <p className="mt-6 text-center text-secondary">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:text-blue-800 font-semibold">
+          <Link
+            to="/login"
+            className="text-blue-600 hover:text-blue-800 font-semibold"
+          >
             Login
           </Link>
         </p>

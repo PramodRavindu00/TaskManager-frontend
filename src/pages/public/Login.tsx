@@ -10,13 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAccessToken, setIsAuthenticating } from "@/utils/redux/authSlice";
 import { setUser } from "@/utils/redux/userSlice";
 import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
-import { toast } from "sonner";
 import { useEffect } from "react";
 import {
   selectIsAuthenticated,
   selectLoggedUserRole,
 } from "@/utils/redux/selectors";
 import type { UserRole } from "@/utils/constants/types";
+import { handleApiError } from "@/utils/helpers/handleApiError";
 
 const Login = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -47,8 +47,8 @@ const Login = () => {
 
       reset();
       navigate(getDefaultRouteForRole(user?.role), { replace: true });
-    } catch {
-      toast.error("Login Failed");
+    } catch (error: unknown) {
+      handleApiError(error);
     } finally {
       dispatch(setIsAuthenticating(false));
     }
