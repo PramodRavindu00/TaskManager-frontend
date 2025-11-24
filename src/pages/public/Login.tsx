@@ -61,6 +61,7 @@ const Login = () => {
       });
     }
   }, [isAuthenticated, navigate, loggedUserRole]);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-main">
       <div className="shadow-lg rounded p-8 w-full max-w-md bg-secondary">
@@ -101,7 +102,7 @@ const Login = () => {
         <p className="mt-6 text-center text-secondary">
           Don't have an account?{" "}
           <Link
-            to="/login"
+            to="/signup"
             className="text-blue-600 hover:text-blue-800 font-semibold"
           >
             Sign Up

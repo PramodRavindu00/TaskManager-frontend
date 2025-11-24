@@ -3,12 +3,14 @@ import {
   type SignUpFormData,
 } from "@/utils/formValidations/signUpSchema";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import api from "@/utils/axios/apiUtil";
 import { handleApiError } from "@/utils/helpers/handleApiError";
+import { toast } from "sonner";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,6 +23,8 @@ const Signup = () => {
     try {
       await api.post("/auth/signup", rest, { public: true });
       reset();
+      toast.success("User registered successfully");
+      navigate("/login");
     } catch (error: unknown) {
       handleApiError(error);
     }

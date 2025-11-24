@@ -131,7 +131,7 @@
   }
 
   .form-input {
-    @apply w-full p-3 outline-2 rounded-xl mt-2;
+    @apply w-full px-3 py-2.5 outline-2 rounded-xl mt-2;
     outline-color: var(--color-outline-secondary);
 
     &:focus {
@@ -141,12 +141,14 @@
       -webkit-box-shadow: transparent inset;
       -webkit-text-fill-color: var(--color-text-main);
       transition: background-color 5000s ease-in-out 0s;
+      caret-color: var(--color-text-main);
     }
 
     /* Firefox autofill */
     &:-moz-autofill {
       box-shadow: transparent inset;
       -moz-text-fill-color: var(--color-text-main);
+      caret-color: var(--color-text-main);
     }
   }
 
