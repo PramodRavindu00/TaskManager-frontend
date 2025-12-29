@@ -1,5 +1,5 @@
 const TaskForm = () => {
-  return <div>TaskForm</div>;
+  return <div className="flex flex-col gap-1"></div>;
 };
 
 export default TaskForm;
