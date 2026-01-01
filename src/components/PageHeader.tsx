@@ -1,36 +1,58 @@
-import { FaPlus } from "react-icons/fa";
+import {  FaPlus } from "react-icons/fa";
+import {  FaChevronLeft } from "react-icons/fa6";
 
 import { Link } from "react-router-dom";
 
-interface PageHeaderBaseProps {
+interface PageHeaderProps {
   title: string;
 }
-interface PageHeaderWithNewButton extends PageHeaderBaseProps {
-  showNewButton: true;
+interface PageHeaderWithNewButton extends PageHeaderProps {
   newButtonPath: string;
   newButtonTitle?: string;
 }
-interface PageHeaderWithoutNewButton extends PageHeaderBaseProps {
-  showNewButton?: false;
+interface PageHeaderWithBackButton extends PageHeaderProps {
+  backPath: string;
 }
 
-type PageHeaderProps = PageHeaderWithNewButton | PageHeaderWithoutNewButton;
-const PageHeader = (props: PageHeaderProps) => {
-  const { title } = props;
+
+export const PageHeader = ({title}: PageHeaderProps) => {
   return (
-    <div className="gap-2 py-2 flex flex-col items-start md:flex-row md:items-center md:justify-between">
-      <h1 className="text-xl md:text-2xl font-semibold capitalize">{title}</h1>
-      {props.showNewButton && (
+      <h1 className="w-full text-xl md:text-2xl font-semibold capitalize">{title}</h1>
+  );
+};
+
+
+export const PageHeaderWithNewButton = (props: PageHeaderWithNewButton) => {
+  const { title,newButtonPath,newButtonTitle } = props;
+  return (
+    <div className="w-full gap-2 flex items-center xs:flex-row xs:items-center justify-between">
+    <PageHeader title={title}/>
         <Link
-          to={props.newButtonPath}
-          className="min-w-32 flex flex-row items-center justify-center gap-2   text-white px-4 py-2 rounded-xl transition-transform duration-1000 ease-in-out  cursor-pointer btn-primary-bg hover:bg-blue-700"
+          to={newButtonPath}
+          className="min-w-32 btn-primary"
         >
           <FaPlus className="text-xs" />
-          {props.newButtonTitle ?? "New"}
+          {newButtonTitle ?? "New"}
         </Link>
-      )}
     </div>
   );
 };
 
-export default PageHeader;
+export const PageHeaderWithBackButton = (props: PageHeaderWithBackButton) => {
+  const { title,backPath } = props;
+  return (
+    <div className="w-full gap-2 flex items-center">
+          <Link
+          to={backPath}
+          className="border p-2 rounded-lg bg-secondary border-main hover:scale-110 transform duration-300 ease-in-out"
+        >
+          <FaChevronLeft className="text-xl text-secondary " />
+        </Link>
+    <PageHeader title={title}/>
+       
+    </div>
+  );
+};
+
+
+

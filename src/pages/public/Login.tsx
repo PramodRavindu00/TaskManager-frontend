@@ -95,7 +95,7 @@ const Login = () => {
               <p className="form-error">{errors.password.message}</p>
             )}
           </div>
-          <button className="btn-primary" type="submit" disabled={isSubmitting}>
+          <button className="btn-primary w-full" type="submit" disabled={isSubmitting}>
             Login
           </button>
         </form>

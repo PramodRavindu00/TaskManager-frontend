@@ -118,7 +118,7 @@ const Signup = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn-primary" disabled={isSubmitting}>
+          <button type="submit" className="btn-primary w-full" disabled={isSubmitting}>
             Register
           </button>
         </form>

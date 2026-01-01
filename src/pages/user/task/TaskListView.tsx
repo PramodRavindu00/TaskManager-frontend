@@ -1,5 +1,9 @@
+import { PageHeaderWithNewButton } from "@/components/PageHeader";
+
 const TaskListView = () => {
-  return <div className="flex flex-col gap-2 items-start"></div>;
+  return <div className="col-page">
+    <PageHeaderWithNewButton title="Task List" newButtonPath="/tasks/new"/>
+  </div>;
 };
 
 export default TaskListView;

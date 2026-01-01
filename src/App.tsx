@@ -18,9 +18,7 @@ import AuthWrapper from "./components/AuthWrapper";
 import { useSelector } from "react-redux";
 import { selectTheme } from "./utils/redux/selectors";
 import { useEffect } from "react";
-import ProjectLayout from "./layouts/user/ProjectLayout";
 import ProjectForm from "./pages/user/project/ProjectForm";
-import TaskLayout from "./layouts/user/TaskLayout";
 import ProjectListView from "./pages/user/project/ProjectListView";
 import TaskListView from "./pages/user/task/TaskListView";
 import TaskForm from "./pages/user/task/TaskForm";
@@ -54,19 +52,19 @@ const App = () => {
                   path="/work-board/projects/:projectId"
                   element={<Dashboard />}
                 />
-                <Route element={<TaskLayout />}>
+    
                   <Route path="/tasks" element={<TaskListView />} />
                   <Route path="/tasks/new" element={<TaskForm />} />
                   <Route path="/tasks/:taskId" element={<TaskForm />} />
-                </Route>
-                <Route element={<ProjectLayout />}>
+             
+ 
                   <Route path="/projects" element={<ProjectListView />} />
                   <Route path="/projects/new" element={<ProjectForm />} />
                   <Route
                     path="/projects/:projectId"
                     element={<ProjectForm />}
                   />
-                </Route>
+           
               </Route>
             </Route>
 
