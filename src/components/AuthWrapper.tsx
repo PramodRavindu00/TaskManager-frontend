@@ -1,11 +1,16 @@
+// AuthWrapper.tsx
 import api from "@/utils/axios/apiUtil";
-import { setAccessToken, setIsAuthenticating } from "@/utils/redux/authSlice";
+import { 
+  setAccessToken, 
+  setIsAuthenticating, 
+  setAuthInitialized 
+} from "@/utils/redux/authSlice";
 import {
-  selectIsAuthenticated,
+  selectAuthInitialized,
   selectIsAuthenticating,
 } from "@/utils/redux/selectors";
 import { setUser } from "@/utils/redux/userSlice";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
@@ -15,41 +20,57 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  
   const isAuthenticating = useSelector(selectIsAuthenticating);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const initialized = useRef(false);
+  const authInitialized = useSelector(selectAuthInitialized);
+
   useEffect(() => {
+    // Skip if auth is already initialized
+    if (authInitialized) return;
+
     const currentPath = location.pathname.replace(/\/+$/, "");
     const isPublic = publicRoutes.includes(currentPath);
 
-    if (
-      (!isAuthenticated && isPublic) ||
-      isAuthenticated ||
-      initialized.current
-    ) {
-      dispatch(setIsAuthenticating(false));
-      return;
-    }
-
-    const checkAuth = async () => {
+    // Initialize auth
+    const initializeAuth = async () => {
+      dispatch(setIsAuthenticating(true));
+      
       try {
+        // Try to refresh token
         const { data: refreshData } = await api.get("/auth/refresh");
-        dispatch(setAccessToken(refreshData?.accessToken));
-
-        const { data: user } = await api.get("/auth/loggedUser");
-        dispatch(setUser(user));
-      } catch {
-        navigate("/login", { replace: true });
+        
+        if (refreshData?.accessToken) {
+          dispatch(setAccessToken(refreshData.accessToken));
+          
+          // Fetch user data if token exists
+          const { data: user } = await api.get("/auth/loggedUser");
+          dispatch(setUser(user));
+        } else {
+          dispatch(setAccessToken(null));
+        }
+      } catch (error) {
+        // Clear auth on any error
+        console.error(error)
+        dispatch(setAccessToken(null));
+        
+        // Only redirect to login if not on a public route
+        if (!isPublic) {
+          navigate("/login", { replace: true });
+        }
       } finally {
+        // Mark auth as initialized
         dispatch(setIsAuthenticating(false));
-        initialized.current = true;
+        dispatch(setAuthInitialized(true));
       }
     };
 
-    checkAuth();
-  }, [dispatch, navigate, isAuthenticated, location.pathname]);
+    initializeAuth();
+  }, [dispatch, navigate, authInitialized, location.pathname]);
 
-  if (isAuthenticating) return <Spinner fullScreen={true} />;
+  // Don't render children until auth is initialized
+  if (!authInitialized || isAuthenticating) {
+    return <Spinner fullScreen={true} />;
+  }
 
   return <>{children}</>;
 };

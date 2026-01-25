@@ -4,7 +4,9 @@ import type { AuthState } from "../constants/types";
 const initialState: AuthState = {
   accessToken: null,
   isAuthenticating: true,
+  authInitialized: false,
 };
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -15,13 +17,17 @@ const authSlice = createSlice({
     setIsAuthenticating: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticating = action.payload;
     },
+    setAuthInitialized: (state, action: PayloadAction<boolean>) => {
+      state.authInitialized = action.payload;
+    },
     clearAuth: (state) => {
       state.accessToken = null;
-      state.isAuthenticating = true;
+      state.isAuthenticating = false;
+      state.authInitialized = true;
     },
   },
 });
 
-export const { setAccessToken, setIsAuthenticating, clearAuth } =
+export const { setAccessToken, setIsAuthenticating, setAuthInitialized, clearAuth } =
   authSlice.actions;
 export default authSlice.reducer;
