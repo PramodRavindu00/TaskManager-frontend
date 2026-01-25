@@ -7,8 +7,8 @@ export interface ProtectedRouteProps {
 
 export interface AuthState {
   accessToken: string | null;
-  isAuthenticating: boolean;
-  authInitialized: boolean;
+  isLoading: boolean;
+  isAuthenticated: boolean;
 }
 
 export interface User {
@@ -16,7 +16,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  role: string;
+  role: UserRole;
 }
 export interface UserState {
   data: User | null;

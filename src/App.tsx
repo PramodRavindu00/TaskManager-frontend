@@ -1,5 +1,4 @@
 import {
-  Navigate,
   Route,
   BrowserRouter as Router,
   Routes,
@@ -22,6 +21,7 @@ import ProjectForm from "./pages/user/project/ProjectForm";
 import ProjectListView from "./pages/user/project/ProjectListView";
 import TaskListView from "./pages/user/task/TaskListView";
 import TaskForm from "./pages/user/task/TaskForm";
+import RootRedirect from "./components/RootRedirect";
 const App = () => {
   const theme = useSelector(selectTheme);
 
@@ -35,7 +35,7 @@ const App = () => {
         <AuthWrapper>
           <Routes>
             {/* public routes */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/" element={<RootRedirect/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 

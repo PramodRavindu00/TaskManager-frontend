@@ -3,27 +3,23 @@ import type { LoginFormData } from "@/utils/formValidations/loginSchema";
 import type { SignUpFormData } from "@/utils/formValidations/signUpSchema";
 
 export const authService = {
-  refresh: async () => {
-    const { data } = await api.get("/auth/refresh");
-    return data;
-  },
-
-  getLoggedUser: async () => {
-    const { data } = await api.get("/auth/loggedUser");
-    return data;
+  signup: async (payload: SignUpFormData) => {
+    return await api.post("/auth/signup", payload, { public: true });
   },
 
   login: async (payload: LoginFormData) => {
-    const { data } = await api.post("/auth/login", payload);
-    return data;
+    return await api.post("/auth/login", payload, { public: true });
   },
 
-  signup: async (payload: SignUpFormData) => {
-    const { data } = await api.post("/auth/signup", payload);
-    return data;
+  refresh: async () => {
+      return await api.get("/auth/refresh", { public: true });
+  },
+
+  getLoggedUser: async () => {
+    return await api.get("/auth/loggedUser");
   },
 
   logout: async () => {
-    await api.post("/auth/logout");
+    return await api.post("/auth/logout");
   },
 };

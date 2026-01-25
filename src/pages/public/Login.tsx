@@ -5,23 +5,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import api from "@/utils/axios/apiUtil";
-import { useDispatch, useSelector } from "react-redux";
-import { setAccessToken, setIsAuthenticating } from "@/utils/redux/authSlice";
+import { useDispatch } from "react-redux";
+import { clearAuth, setAccessToken, setAuthLoading, setAuthenticated } from "@/utils/redux/authSlice";
 import { setUser } from "@/utils/redux/userSlice";
 import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
-import { useEffect } from "react";
-import {
-  selectIsAuthenticated,
-  selectLoggedUserRole,
-} from "@/utils/redux/selectors";
-import type { UserRole } from "@/utils/constants/types";
 import { handleApiError } from "@/utils/helpers/handleApiError";
+import { authService } from "@/service/auth.service";
 
 const Login = () => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const loggedUserRole = useSelector(selectLoggedUserRole);
-
   const {
     register,
     handleSubmit,
@@ -34,34 +25,29 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      const res = await api.post("/auth/login", data, { public: true });
-      const token = res?.data?.accessToken;
+const onSubmit = async (data: LoginFormData) => {
+  try {
+    dispatch(setAuthLoading(true));
+    
+    const loginResponse = await authService.login(data);
+    const token = loginResponse?.data?.accessToken;
 
-      //set access token in the redux state
-      dispatch(setAccessToken(token));
-
-      const { data: user } = await api.get("/auth/loggedUser");
-      dispatch(setUser(user)); //set user in redux
-
-      reset();
-      navigate(getDefaultRouteForRole(user?.role), { replace: true });
-    } catch (error: unknown) {
-      handleApiError(error);
-    } finally {
-      dispatch(setIsAuthenticating(false));
-    }
-  };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(getDefaultRouteForRole(loggedUserRole as UserRole), {
-        replace: true,
-      });
-    }
-  }, [isAuthenticated, navigate, loggedUserRole]);
-
+    // Set access token in the redux state
+    dispatch(setAccessToken(token));
+    // Get logged user 
+    const userResponse = await authService.getLoggedUser();
+    const user = userResponse?.data;
+    dispatch(setUser(user));
+    dispatch(setAuthenticated(true));
+    navigate(getDefaultRouteForRole(user?.role), { replace: true });
+    reset();
+  } catch (error: unknown) {
+    handleApiError(error);
+    dispatch(clearAuth());
+  } finally {
+    dispatch(setAuthLoading(false));
+  }
+};
   return (
     <div className="flex items-center justify-center min-h-screen bg-main">
       <div className="shadow-lg rounded p-8 w-full max-w-md bg-secondary">

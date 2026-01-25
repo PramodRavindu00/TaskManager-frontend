@@ -7,9 +7,10 @@ import { store } from "@/utils/redux/store";
 import {
   setAccessToken,
   clearAuth,
-  setIsAuthenticating,
+  setAuthLoading,
 } from "@/utils/redux/authSlice";
 import { clearUser } from "@/utils/redux/userSlice";
+import { authService } from "@/service/auth.service";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "http://localhost:5000";
 
@@ -48,13 +49,11 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const refreshResponse = await api.get("/auth/refresh", {
-          public: true,
-        });
-        const newAccessToken = refreshResponse.data.accessToken;
+        const res = await authService.refresh();
+        const newAccessToken = res?.data?.accessToken;
 
         store.dispatch(setAccessToken(newAccessToken));
-        store.dispatch(setIsAuthenticating(false));
+        store.dispatch(setAuthLoading(false));
 
         if (!originalRequest.headers) {
           originalRequest.headers = {};

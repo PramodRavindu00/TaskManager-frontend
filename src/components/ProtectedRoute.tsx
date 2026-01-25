@@ -1,23 +1,20 @@
-// ProtectedRoute.tsx
 import { Navigate, Outlet } from "react-router-dom";
 import Spinner from "./Spinner";
 import type { ProtectedRouteProps, UserRole } from "@/utils/constants/types";
 import { useSelector } from "react-redux";
 import {
-  selectIsAuthenticated,
-  selectIsAuthenticating,
+  selectAuthLoading,
+  selectAuthenticated,
   selectLoggedUserRole,
-  selectAuthInitialized,
 } from "@/utils/redux/selectors";
 
 const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
-  const isAuthenticating = useSelector(selectIsAuthenticating);
-  const authInitialized = useSelector(selectAuthInitialized);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isAuthLoading = useSelector(selectAuthLoading);
+  const isAuthenticated = useSelector(selectAuthenticated);
   const loggedUserRole = useSelector(selectLoggedUserRole);
 
-  // Show spinner only while initializing
-  if (!authInitialized || isAuthenticating) {
+  // Show spinner only while initializing auth
+  if (isAuthLoading) {
     return <Spinner fullScreen={true} />;
   }
 

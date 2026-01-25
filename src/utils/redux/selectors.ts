@@ -2,13 +2,8 @@
 import type { RootState } from "./store";
 
 export const selectAccessToken = (state: RootState) => state.auth.accessToken;
-export const selectIsAuthenticated = (state: RootState) =>
-  !!state.auth.accessToken;
-export const selectIsAuthenticating = (state: RootState) =>
-  state.auth.isAuthenticating;
-
-export const selectAuthInitialized = (state: RootState) =>
-  state.auth.authInitialized; 
+export const selectAuthLoading = (state:RootState)=>state.auth.isLoading;
+export const selectAuthenticated = (state: RootState) =>state.auth.isAuthenticated;
 
 export const selectLoggedUser = (state: RootState) => state.user.data;
 export const selectLoggedUserRole = (state: RootState) => state.user.data?.role;
