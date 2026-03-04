@@ -9,6 +9,7 @@ export interface AuthState {
   accessToken: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
+  user: User | null;
 }
 
 export interface User {

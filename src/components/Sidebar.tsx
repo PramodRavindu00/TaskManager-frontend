@@ -1,7 +1,6 @@
 import api from "@/utils/axios/apiUtil";
 import { clearAuth } from "@/utils/redux/authSlice";
 import { selectLoggedUserRole } from "@/utils/redux/selectors";
-import { clearUser } from "@/utils/redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -26,7 +25,6 @@ const Sidebar = () => {
   const handleLogOut = async () => {
     try {
       await api.post("/auth/logout");
-      dispatch(clearUser());
       dispatch(clearAuth());
       navigate("/login", { replace: true });
     } catch {

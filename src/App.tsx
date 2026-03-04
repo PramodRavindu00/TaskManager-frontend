@@ -1,8 +1,4 @@
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Login from "./pages/public/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/public/Signup";
@@ -22,6 +18,7 @@ import ProjectListView from "./pages/user/project/ProjectListView";
 import TaskListView from "./pages/user/task/TaskListView";
 import TaskForm from "./pages/user/task/TaskForm";
 import RootRedirect from "./components/RootRedirect";
+import PublicRoute from "./components/PublicRoute";
 const App = () => {
   const theme = useSelector(selectTheme);
 
@@ -35,10 +32,11 @@ const App = () => {
         <AuthWrapper>
           <Routes>
             {/* public routes */}
-            <Route path="/" element={<RootRedirect/>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-
+            <Route path="/" element={<RootRedirect />} />
+            <Route element={<PublicRoute />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
 
             {/* protected routes with valid authentication and user roles */}
@@ -52,19 +50,14 @@ const App = () => {
                   path="/work-board/projects/:projectId"
                   element={<Dashboard />}
                 />
-    
-                  <Route path="/tasks" element={<TaskListView />} />
-                  <Route path="/tasks/new" element={<TaskForm />} />
-                  <Route path="/tasks/:taskId" element={<TaskForm />} />
-             
- 
-                  <Route path="/projects" element={<ProjectListView />} />
-                  <Route path="/projects/new" element={<ProjectForm />} />
-                  <Route
-                    path="/projects/:projectId"
-                    element={<ProjectForm />}
-                  />
-           
+
+                <Route path="/tasks" element={<TaskListView />} />
+                <Route path="/tasks/new" element={<TaskForm />} />
+                <Route path="/tasks/:taskId" element={<TaskForm />} />
+
+                <Route path="/projects" element={<ProjectListView />} />
+                <Route path="/projects/new" element={<ProjectForm />} />
+                <Route path="/projects/:projectId" element={<ProjectForm />} />
               </Route>
             </Route>
 

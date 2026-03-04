@@ -4,19 +4,17 @@ import {
 } from "@/utils/formValidations/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   clearAuth,
-  setAccessToken,
+  refreshAccessToken,
   setAuthLoading,
-  setAuthenticated,
+  setAuthSuccess,
 } from "@/utils/redux/authSlice";
-import { setUser } from "@/utils/redux/userSlice";
-import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
+
 import { handleApiError } from "@/utils/helpers/handleApiError";
 import { authService } from "@/service/auth.service";
-
 const Login = () => {
   const {
     register,
@@ -27,7 +25,6 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onSubmit = async (data: LoginFormData) => {
@@ -37,24 +34,19 @@ const Login = () => {
       const loginResponse = await authService.login(data);
       const token = loginResponse?.data?.accessToken;
 
-      // Set access token in the redux state
-      dispatch(setAccessToken(token));
-      // Get logged user
+      dispatch(refreshAccessToken(token));
+
       const userResponse = await authService.getLoggedUser();
       const user = userResponse?.data;
-      dispatch(setUser(user));
-      dispatch(setAuthenticated(true));
-      navigate(getDefaultRouteForRole(user?.role), { replace: true });
+
+      dispatch(setAuthSuccess({ accessToken: token, user }));
       reset();
     } catch (error: unknown) {
       handleApiError(error);
       dispatch(clearAuth());
-    } finally {
-      dispatch(setAuthLoading(false));
     }
   };
 
-  console.log("login page rendered");
   return (
     <div className="flex items-center justify-center min-h-screen bg-main">
       <div className="shadow-lg rounded p-8 w-full max-w-md bg-secondary">

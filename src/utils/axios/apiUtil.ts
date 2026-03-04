@@ -4,12 +4,7 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from "axios";
 import { store } from "@/utils/redux/store";
-import {
-  setAccessToken,
-  clearAuth,
-  setAuthLoading,
-} from "@/utils/redux/authSlice";
-import { clearUser } from "@/utils/redux/userSlice";
+import { clearAuth, refreshAccessToken } from "@/utils/redux/authSlice";
 import { authService } from "@/service/auth.service";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "http://localhost:5000";
@@ -32,7 +27,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response Interceptor
@@ -52,8 +47,7 @@ api.interceptors.response.use(
         const res = await authService.refresh();
         const newAccessToken = res?.data?.accessToken;
 
-        store.dispatch(setAccessToken(newAccessToken));
-        store.dispatch(setAuthLoading(false));
+        store.dispatch(refreshAccessToken(newAccessToken));
 
         if (!originalRequest.headers) {
           originalRequest.headers = {};
@@ -63,14 +57,13 @@ api.interceptors.response.use(
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
         store.dispatch(clearAuth());
-        store.dispatch(clearUser());
         window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

@@ -2,9 +2,9 @@ import { ClipLoader } from "react-spinners";
 const Spinner = ({ fullScreen = false }: { fullScreen?: boolean }) => {
   return (
     <div
-      className={`w-full flex items-center justify-center ${
+      className={`w-full flex items-center justify-center bg-main ${
         fullScreen
-          ? "h-screen bg-main backdrop-blur-sm fixed inset-0 z-50"
+          ? "h-screen  backdrop-blur-sm fixed inset-0 z-50"
           : "absolute inset-0"
       }`}
     >

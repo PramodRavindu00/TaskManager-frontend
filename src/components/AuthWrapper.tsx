@@ -1,11 +1,5 @@
-import { 
-  clearAuth,
-  setAccessToken, 
-  setAuthLoading,
-  setAuthenticated,
-} from "@/utils/redux/authSlice";
+import { clearAuth, setAuthSuccess } from "@/utils/redux/authSlice";
 
-import { setUser } from "@/utils/redux/userSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "./Spinner";
@@ -19,28 +13,20 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        dispatch(setAuthLoading(true));
-        
         // Try to refresh token - returns data directly
         const refreshResponse = await authService.refresh();
         const token = refreshResponse?.data?.accessToken;
-        
+
         if (token) {
-          dispatch(setAccessToken(token));
-          
           // Fetch user data - returns user object directly (not wrapped in data)
           const userResponse = await authService.getLoggedUser();
           const user = userResponse?.data;
-          dispatch(setUser(user));
-          dispatch(setAuthenticated(true));
+          dispatch(setAuthSuccess({ accessToken: token, user }));
         } else {
           dispatch(clearAuth());
         }
-      } catch (error) {
-        console.error("Auth initialization failed:", error);
+      } catch {
         dispatch(clearAuth());
-      } finally {
-        dispatch(setAuthLoading(false));
       }
     };
 

@@ -1,17 +1,17 @@
-import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
+import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   selectAuthLoading,
   selectAuthenticated,
   selectLoggedUserRole,
 } from "@/utils/redux/selectors";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { getDefaultRouteForRole } from "@/utils/helpers/getDefaultRouteForRole";
 import Spinner from "./Spinner";
 
-const RootRedirect = () => {
+const PublicRoute = () => {
+  const isAuthLoading = useSelector(selectAuthLoading);
   const isAuthenticated = useSelector(selectAuthenticated);
   const loggedUserRole = useSelector(selectLoggedUserRole);
-  const isAuthLoading = useSelector(selectAuthLoading);
 
   if (isAuthLoading) return <Spinner fullScreen={true} />;
 
@@ -19,7 +19,7 @@ const RootRedirect = () => {
     return <Navigate to={getDefaultRouteForRole(loggedUserRole)} replace />;
   }
 
-  return <Navigate to="/login" replace />;
+  return <Outlet />;
 };
 
-export default RootRedirect;
+export default PublicRoute;
