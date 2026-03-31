@@ -6,3 +6,8 @@ export const publicRoutes: string[] = [
   "/unauthorized",
   "/test",
 ];
+
+export enum TaskType {
+  Personal = "Personal",
+  Project = "Project",
+}

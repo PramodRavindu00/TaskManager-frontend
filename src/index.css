@@ -35,6 +35,7 @@ html.dark {
 .dark {
   --color-bg-main: #0f0e0e;
   --color-bg-secondary: #1e1d1d;
+  --color-btn-secondary-bg: #1e1d1d;
   --color-border-main: #3f3f3f;
   --color-text-main: #ffffff;
   --color-scrollbar-thumb: rgba(255, 255, 255, 0.8);
@@ -178,6 +179,7 @@ html.dark {
       @apply hover:bg-blue-700;
     }
   }
+
 
   .col-page {
     @apply flex flex-col gap-5 py-5;

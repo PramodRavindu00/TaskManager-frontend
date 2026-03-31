@@ -27,7 +27,7 @@ export const PageHeaderWithNewButton = (props: PageHeaderWithNewButton) => {
   return (
     <div className="w-full gap-2 flex items-center xs:flex-row xs:items-center justify-between">
       <PageHeader title={title} />
-      <Link to={newButtonPath} className="min-w-22 btn-primary hover:scale-105">
+      <Link to={newButtonPath} className="min-w-24 btn-primary">
         <FaPlus className="text-xs" />
         {newButtonTitle ?? "New"}
       </Link>
@@ -41,9 +41,9 @@ export const PageHeaderWithBackButton = (props: PageHeaderWithBackButton) => {
     <div className="w-full gap-2 flex items-center">
       <Link
         to={backPath}
-        className="border p-2 rounded-lg bg-secondary border-main hover:scale-110 transform duration-300 ease-in-out"
+        className="border p-2 rounded-lg bg-secondary border-main transform duration-300 ease-in-out hover:bg-[var(--color-bg-main)]"
       >
-        <FaChevronLeft className="text-xl text-secondary " />
+        <FaChevronLeft className="text-xl" />
       </Link>
       <PageHeader title={title} />
     </div>
