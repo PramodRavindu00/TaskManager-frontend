@@ -81,6 +81,9 @@ html.dark {
   .outline-primary {
     outline-color: var(--color-outline-primary);
   }
+  .outline-secondary {
+    outline-color: var(--color-outline-secondary);
+  }
   .outline-warning {
     outline-color: var(--color-outline-warning);
   }
@@ -134,12 +137,12 @@ html.dark {
     @apply w-full flex flex-col;
   }
   .form-label {
-    @apply font-semibold;
+    @apply font-semibold text-sm;
     color: var(--color-text-secondary);
   }
 
   .form-input {
-    @apply w-full px-3 py-2.5 outline-2 rounded-xl mt-2;
+    @apply w-full px-3 py-2.5 outline-2 rounded-xl mt-2 text-sm;
     outline-color: var(--color-outline-secondary);
 
     &:focus {

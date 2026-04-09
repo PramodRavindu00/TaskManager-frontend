@@ -1,3 +1,4 @@
+import FormComponent from "@/components/FormComponent";
 import { PageHeaderWithBackButton } from "@/components/PageHeader";
 import { taskSchema } from "@/utils/formValidations/taskSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +15,8 @@ const TaskForm = () => {
   });
   return <div className="col-page">
     <PageHeaderWithBackButton backPath="/tasks" title="Add or Edit"/>
-    <form className="space-y-5">
+  
+    <FormComponent onSubmit={()=>console.log("")}>
           <div className="form-group">
             <label htmlFor="title" className="form-label">
               Title
@@ -49,7 +51,7 @@ const TaskForm = () => {
           >
             Save
           </button>
-        </form>
+        </FormComponent>
   </div>;
 };
 
