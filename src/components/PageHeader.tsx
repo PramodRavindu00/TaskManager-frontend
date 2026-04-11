@@ -6,8 +6,14 @@ import { Link } from "react-router-dom";
 interface PageHeaderProps {
   title: string;
 }
-interface PageHeaderWithNewButton extends PageHeaderProps {
+
+interface PageHeaderWithNewNavigation extends PageHeaderProps {
   newButtonPath: string;
+  newButtonTitle?: string;
+}
+
+interface PageHeaderWithNewButton extends PageHeaderProps {
+  onClick: ()=>void;
   newButtonTitle?: string;
 }
 interface PageHeaderWithBackButton extends PageHeaderProps {
@@ -16,18 +22,31 @@ interface PageHeaderWithBackButton extends PageHeaderProps {
 
 export const PageHeader = ({ title }: PageHeaderProps) => {
   return (
-    <h1 className="w-full text-xl font-semibold capitalize">
+    <h1 className="text-xl font-semibold capitalize">
       {title}
     </h1>
   );
 };
 
 export const PageHeaderWithNewButton = (props: PageHeaderWithNewButton) => {
+  const { title, onClick, newButtonTitle } = props;
+  return (
+    <div className="w-full gap-2 flex items-center xs:flex-row xs:items-center justify-between">
+      <PageHeader title={title} />
+      <button onClick={onClick} className="min-w-24 btn-primary py-2 px-3">
+        <FaPlus className="text-xs" />
+        {newButtonTitle ?? "New"}
+      </button>
+    </div>
+  );
+};
+
+export const PageHeaderWithNewNavigation = (props: PageHeaderWithNewNavigation) => {
   const { title, newButtonPath, newButtonTitle } = props;
   return (
     <div className="w-full gap-2 flex items-center xs:flex-row xs:items-center justify-between">
       <PageHeader title={title} />
-      <Link to={newButtonPath} className="min-w-24 btn-primary p-1.5">
+      <Link to={newButtonPath} className="min-w-24 btn-primary py-2 px-3">
         <FaPlus className="text-xs" />
         {newButtonTitle ?? "New"}
       </Link>

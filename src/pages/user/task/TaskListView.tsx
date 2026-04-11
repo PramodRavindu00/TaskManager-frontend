@@ -1,8 +1,8 @@
-import { PageHeaderWithNewButton } from "@/components/PageHeader";
+import { PageHeaderWithNewNavigation } from "@/components/PageHeader";
 
 const TaskListView = () => {
   return <div className="col-page">
-    <PageHeaderWithNewButton title="Task List" newButtonPath="/tasks/new"/>
+    <PageHeaderWithNewNavigation title="Task List" newButtonPath="/tasks/new"/>
   </div>;
 };
 
