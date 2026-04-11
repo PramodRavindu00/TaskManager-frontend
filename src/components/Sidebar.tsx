@@ -47,7 +47,7 @@ const Sidebar = () => {
           w-full
           sm:w-52
          bg-secondary
-          border-r
+          border-r-2
          border-main
         `}
       >

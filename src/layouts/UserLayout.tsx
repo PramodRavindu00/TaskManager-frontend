@@ -10,8 +10,8 @@ const UserLayout = () => {
       <div className="flex flex-col flex-1">
         <Appbar />
 
-        <main className="flex grow  px-5">
-          <div className="w-full">
+        <main className="flex grow px-5">
+          <div className="flex flex-col w-full">
             <Outlet />
           </div>
         </main>

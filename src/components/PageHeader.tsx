@@ -16,7 +16,7 @@ interface PageHeaderWithBackButton extends PageHeaderProps {
 
 export const PageHeader = ({ title }: PageHeaderProps) => {
   return (
-    <h1 className="w-full text-xl md:text-2xl font-semibold capitalize">
+    <h1 className="w-full text-xl font-semibold capitalize">
       {title}
     </h1>
   );
@@ -27,7 +27,7 @@ export const PageHeaderWithNewButton = (props: PageHeaderWithNewButton) => {
   return (
     <div className="w-full gap-2 flex items-center xs:flex-row xs:items-center justify-between">
       <PageHeader title={title} />
-      <Link to={newButtonPath} className="min-w-24 btn-primary">
+      <Link to={newButtonPath} className="min-w-24 btn-primary p-1.5">
         <FaPlus className="text-xs" />
         {newButtonTitle ?? "New"}
       </Link>
@@ -38,12 +38,12 @@ export const PageHeaderWithNewButton = (props: PageHeaderWithNewButton) => {
 export const PageHeaderWithBackButton = (props: PageHeaderWithBackButton) => {
   const { title, backPath } = props;
   return (
-    <div className="w-full gap-2 flex items-center">
+    <div className="w-full gap-4 flex items-center">
       <Link
         to={backPath}
-        className="border p-2 rounded-lg bg-secondary border-main transform duration-300 ease-in-out hover:bg-(--color-bg-main)"
+        className="border-2 p-2 rounded-lg border-main transform duration-300 ease-in-out hover:bg-(--color-bg-secondary)"
       >
-        <FaChevronLeft className="text-xl" />
+        <FaChevronLeft />
       </Link>
       <PageHeader title={title} />
     </div>

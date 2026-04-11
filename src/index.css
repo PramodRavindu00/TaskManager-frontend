@@ -9,10 +9,12 @@ html.dark {
 }
 
 :root {
-  --color-bg-main: #f5f5f5;
-  --color-bg-secondary: #ffffff;
+  --color-bg-secondary: #f1ecec;
+  --color-bg-main: #ffffff;
+
   --color-border-main: #d4d4d4;
   --color-text-main: #000000;
+
   --color-scrollbar-thumb: rgba(0, 0, 0, 0.3);
   --color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.45);
 
@@ -26,6 +28,7 @@ html.dark {
   --color-btn-danger-bg: #dc2626;
 
   /* outline colors same for dark and light */
+  --color-outline-default: #d4d4d4;
   --color-outline-primary: #1e78ec;
   --color-outline-secondary: #acaeb0;
   --color-outline-warning: #fbbf24;
@@ -38,6 +41,7 @@ html.dark {
   --color-btn-secondary-bg: #1e1d1d;
   --color-border-main: #3f3f3f;
   --color-text-main: #ffffff;
+  --color-outline-default: #3f3f3f;
   --color-scrollbar-thumb: rgba(255, 255, 255, 0.8);
   --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.95);
 }
@@ -77,6 +81,7 @@ html.dark {
   .btn-danger-bg {
     background-color: var(--color-btn-danger-bg);
   }
+
 
   .outline-primary {
     outline-color: var(--color-outline-primary);
@@ -143,7 +148,7 @@ html.dark {
 
   .form-input {
     @apply w-full px-3 py-2.5 outline-2 rounded-xl mt-2 text-sm;
-    outline-color: var(--color-outline-secondary);
+    outline-color: var(--color-outline-default);
 
     &:focus {
       outline-color: var(--color-outline-primary);
@@ -185,6 +190,6 @@ html.dark {
 
 
   .col-page {
-    @apply flex flex-col gap-5 py-5;
+    @apply flex flex-col flex-1 gap-5 py-5;
   }
 }
