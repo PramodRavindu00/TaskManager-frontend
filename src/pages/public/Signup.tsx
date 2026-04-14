@@ -30,8 +30,8 @@ const Signup = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-main">
-      <div className="bg-secondary shadow-lg rounded p-8 w-full max-w-xl">
+    <div className="flex items-center justify-center min-h-screen bg-bg-secondary">
+      <div className="bg-bg-primary shadow-lg rounded p-8 w-full max-w-xl">
         <h1 className="text-2xl font-bold mb-6 text-center">SignUp</h1>
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group-row">
@@ -122,7 +122,7 @@ const Signup = () => {
             Register
           </button>
         </form>
-        <p className="mt-6 text-center text-secondary">
+        <p className="mt-6 text-center text-text-secondary">
           Already have an account?{" "}
           <Link
             to="/login"

@@ -28,7 +28,7 @@ const ProjectCreateForm = ({
     mutationFn:(data:ProjectFormData)=>projectService.create(data),
     onSuccess:()=>{
       queryClient.invalidateQueries({queryKey:['projects']});
-      toast.success("project created successfully");
+      toast.success("Project Created uccessfully");
       reset()
       closeModal();
     },

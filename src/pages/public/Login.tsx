@@ -48,8 +48,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-main">
-      <div className="shadow-lg rounded p-8 w-full max-w-md bg-secondary">
+    <div className="flex items-center justify-center min-h-screen bg-bg-secondary">
+      <div className="shadow-lg rounded p-8 w-full max-w-md bg-bg-primary">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
@@ -88,7 +88,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="mt-6 text-center text-secondary">
+        <p className="mt-6 text-center text-text-secondary">
           Don't have an account?{" "}
           <Link
             to="/signup"

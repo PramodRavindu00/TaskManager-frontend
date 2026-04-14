@@ -46,9 +46,9 @@ const Sidebar = () => {
           ${open ? "translate-x-0" : "-translate-x-full"}
           w-full
           sm:w-52
-         bg-secondary
+         bg-bg-secondary
           border-r-2
-         border-main
+         border-border-primary
         `}
       >
         <div className="flex justify-between mb-5 px-5 items-center">
@@ -74,14 +74,14 @@ const Sidebar = () => {
           <div className="w-full flex flex-row justify-between items-center px-2">
             <Link
               to={"/profile"}
-              className="rounded-full bg-main p-3 cursor-pointer"
+              className="rounded-full bg-bg-primary p-3 cursor-pointer"
               onClick={() => setOpen(false)}
             >
               <FaUser />
             </Link>
             <button
               onClick={handleLogOut}
-              className="rounded-full bg-main p-3 cursor-pointer"
+              className="rounded-full bg-bg-primary p-3 cursor-pointer"
             >
               <FaDoorOpen />
             </button>

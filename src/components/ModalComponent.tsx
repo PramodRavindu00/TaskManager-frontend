@@ -1,3 +1,5 @@
+import { FaTimes } from "react-icons/fa";
+
 type Props = {
     open: boolean;
     onClose: () => void;
@@ -10,15 +12,11 @@ type Props = {
   
     return (
       <dialog className="modal modal-open">
-        <div className="modal-box bg-secondary">
+        <div className="modal-box bg-bg-secondary">
           <div className="modal-header flex items-center justify-between">
-            {title && <h3 className=" text-lg">{title}</h3>}
-            <button
-              onClick={onClose}
-              className="ml-auto cursor-pointer hover:scale-110"
-            >
-              ✕
-            </button>
+            {title && <h3 className="font-semibold text-lg">{title}</h3>}
+            <FaTimes   onClick={onClose}
+              className="font-semibold ml-auto cursor-pointer hover:scale-110"/>
           </div>
           {title &&   <div className="divider divider-neutral my-0" /> }
           {children}

@@ -1,147 +1,93 @@
 @import "tailwindcss";
-@plugin "daisyui";
-
-html {
-  background-color: #f5f5f5;
+@plugin "daisyui" {
+  themes: false;
 }
 
-html.dark {
-  background-color: #0f0e0e;
+
+* {
+  font-family: "Inter", sans-serif;
 }
 
-:root {
-  --color-bg-secondary: #f1ecec;
-  --color-bg-main: #ffffff;
-
-  --color-border-main: #d4d4d4;
-  --color-text-main: #000000;
-
-  --color-scrollbar-thumb: rgba(0, 0, 0, 0.3);
-  --color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.45);
-
-  /* secondary color same for dark and light */
-  --color-text-secondary: #787a7d;
-
-  --color-text-error: #dc2626;
-  --color-btn-primary-bg: #0437f2;
-  --color-btn-secondary-bg: #acaeb0;
-  --color-btn-warning-bg: #f59e0b;
-  --color-btn-danger-bg: #dc2626;
-
-  /* outline colors same for dark and light */
-  --color-outline-default: #d4d4d4;
-  --color-outline-primary: #1e78ec;
-  --color-outline-secondary: #acaeb0;
-  --color-outline-warning: #fbbf24;
-  --color-outline-danger: #dc2626;
-}
-
-.dark {
-  --color-bg-main: #0f0e0e;
-  --color-bg-secondary: #1e1d1d;
-  --color-btn-secondary-bg: #1e1d1d;
-  --color-border-main: #3f3f3f;
-  --color-text-main: #ffffff;
-  --color-outline-default: #3f3f3f;
-  --color-scrollbar-thumb: rgba(255, 255, 255, 0.8);
-  --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.95);
-}
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+
+@theme {
+  --color-bg-primary:               #ffffff;
+  --color-bg-secondary:          #f1ecec;
+
+  --color-text-primary:             #000000;
+  --color-text-secondary:        #787a7d;
+  --color-text-error:            #dc2626;
+
+  --color-border-primary:           #d4d4d4;
+
+  --color-btn-primary-bg:        #16a34a;
+  --color-btn-secondary-bg:      #acaeb0;
+  --color-btn-warning-bg:        #f59e0b;
+  --color-btn-danger-bg:         #dc2626;
+
+  --color-outline-default:       #d4d4d4;
+  --color-outline-primary:       #15803d;
+  --color-outline-secondary:     #acaeb0;
+  --color-outline-warning:       #fbbf24;
+  --color-outline-danger:        #dc2626;
+}
+
+
+:root {
+  --color-scrollbar-thumb:       rgba(0, 0, 0, 0.3);
+  --color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.45);
+}
+
+.dark {
+  --color-bg-primary:               #0f0e0e;
+  --color-bg-secondary:          #1e1d1d;
+  --color-btn-secondary-bg:      #1e1d1d;
+  --color-border-primary:           #3f3f3f;
+  --color-text-primary:             #ffffff;
+  --color-outline-default:       #3f3f3f;
+  --color-scrollbar-thumb:       rgba(255, 255, 255, 0.8);
+  --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.95);
+}
+
+
+html      { background-color: #f5f5f5; }
+html.dark { background-color: #0f0e0e; }
+
+
 @layer utilities {
-  .bg-main {
-    background-color: var(--color-bg-main);
-  }
-  .bg-secondary {
-    background-color: var(--color-bg-secondary);
-  }
-  .text-main {
-    color: var(--color-text-main);
-  }
-  .text-secondary {
-    color: var(--color-text-secondary);
-  }
-  .text-error {
-    color: var(--color-text-error);
-  }
-
-  .border-main {
-    border-color: var(--color-border-main);
-  }
-
-  .btn-primary-bg {
-    background-color: var(--color-btn-primary-bg);
-  }
-  .btn-secondary-bg {
-    background-color: var(--color-btn-secondary-bg);
-  }
-  .btn-warning-bg {
-    background-color: var(--color-btn-warning-bg);
-  }
-  .btn-danger-bg {
-    background-color: var(--color-btn-danger-bg);
-  }
-
-
-  .outline-primary {
-    outline-color: var(--color-outline-primary);
-  }
-  .outline-secondary {
-    outline-color: var(--color-outline-secondary);
-  }
-  .outline-warning {
-    outline-color: var(--color-outline-warning);
-  }
-  .outline-danger {
-    outline-color: var(--color-outline-danger);
-  }
-
-  .scrollbar::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  .scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
+  .scrollbar::-webkit-scrollbar       { width: 3px; }
+  .scrollbar::-webkit-scrollbar-track { background: transparent; }
   .scrollbar::-webkit-scrollbar-thumb {
     background-color: var(--color-scrollbar-thumb);
     border-radius: 10px;
   }
-
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-scrollbar-thumb-hover);
   }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 
   @-moz-document url-prefix() {
-    .scrollbar {
-      scrollbar-width: thin;
-      scrollbar-color: var(--color-scrollbar-thumb) transparent;
-    }
-
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    .scrollbar      { scrollbar-width: thin; scrollbar-color: var(--color-scrollbar-thumb) transparent; }
+    .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
   }
 }
 
 @layer components {
   .link {
-    @apply transition-transform duration-1000 ease-in-out hover:text-blue-950 cursor-pointer;
+    @apply transition-transform duration-1000 ease-in-out cursor-pointer;
+    &:hover { color: #14532d; }
   }
 
   .form-group-row {
-    @apply w-full flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5 items-center md:items-start md:justify-between;
+    @apply w-full flex flex-col md:flex-row gap-5 items-center md:items-start md:justify-between;
   }
+
   .form-group {
     @apply w-full flex flex-col;
   }
+
   .form-label {
     @apply font-semibold text-sm;
     color: var(--color-text-secondary);
@@ -149,31 +95,28 @@ html.dark {
 
   .form-input {
     @apply w-full px-3 py-2.5 outline-2 rounded-xl mt-2 text-sm;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-bg-primary);
     outline-color: var(--color-outline-default);
 
     &:focus {
       outline-color: var(--color-outline-primary);
     }
     &:-webkit-autofill {
-      -webkit-box-shadow: transparent inset;
-      -webkit-text-fill-color: var(--color-text-main);
+      -webkit-box-shadow: 0 0 0px 1000px var(--color-bg-bg-primary) inset;
+      -webkit-text-fill-color: var(--color-text-primary);
+      caret-color: var(--color-text-primary);
       transition: background-color 5000s ease-in-out 0s;
-      caret-color: var(--color-text-main);
     }
-
-    /* Firefox autofill */
     &:-moz-autofill {
-      box-shadow: transparent inset;
-      -moz-text-fill-color: var(--color-text-main);
-      caret-color: var(--color-text-main);
+      box-shadow: 0 0 0px 1000px var(--color-bg-bg-primary) inset;
+      caret-color: var(--color-text-primary);
     }
   }
 
   .form-input-error {
     outline-color: var(--color-outline-danger);
-    &:focus {
-      outline-color: var(--color-outline-danger);
-    }
+    &:focus { outline-color: var(--color-outline-danger); }
   }
 
   .form-error {
@@ -182,15 +125,14 @@ html.dark {
   }
 
   .btn-primary {
-    @apply flex items-center  justify-center gap-2 text-white py-2 rounded-xl transition-transform duration-400 ease-in-out  cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply flex items-center justify-center gap-2 text-white py-2 rounded-xl
+           transition-colors duration-200 ease-in-out cursor-pointer
+           disabled:opacity-50 disabled:cursor-not-allowed;
     background-color: var(--color-btn-primary-bg);
-    &:hover {
-      @apply hover:bg-blue-700;
-    }
+    &:hover:not(:disabled) { background-color: #15803d; }
   }
 
-
   .col-page {
-    @apply flex flex-col flex-1 space-y-5 py-5;
+    @apply flex flex-col flex-1 gap-5 py-5;
   }
 }

@@ -60,7 +60,7 @@ export const PageHeaderWithBackButton = (props: PageHeaderWithBackButton) => {
     <div className="w-full gap-4 flex items-center">
       <Link
         to={backPath}
-        className="border-2 p-2 rounded-lg border-main transform duration-300 ease-in-out hover:bg-(--color-bg-secondary)"
+        className="border-2 p-2 rounded-lg border-border-primary transform duration-300 ease-in-out hover:bg-(--color-bg-bg-secondary)"
       >
         <FaChevronLeft />
       </Link>

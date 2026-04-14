@@ -7,7 +7,7 @@ interface FormProps {
 }
 const FormComponent = ({ onSubmit, children, className }: FormProps) => {
   return (
-    <form onSubmit={onSubmit} className={`space-y-5 p-5 rounded-2xl border-2 border-main ${className ?? ""}`}>
+    <form onSubmit={onSubmit} className={`space-y-5 p-5 rounded-2xl border-2 border-border-primary ${className ?? ""}`}>
       {children}
     </form>
   );
