@@ -5,9 +5,9 @@ interface FormProps {
   children: React.ReactNode;
   className?: string;
 }
-const FormComponent = ({ onSubmit, children, className }: FormProps) => {
+const FormComponent = ({ onSubmit, children }: FormProps) => {
   return (
-    <form onSubmit={onSubmit} className={`space-y-5 p-5 rounded-2xl border-2 border-border-primary ${className ?? ""}`}>
+    <form onSubmit={onSubmit} className={`flex flex-col gap-5`}>
       {children}
     </form>
   );

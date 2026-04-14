@@ -14,11 +14,11 @@ type Props = {
       <dialog className="modal modal-open">
         <div className="modal-box bg-bg-secondary">
           <div className="modal-header flex items-center justify-between">
-            {title && <h3 className="font-semibold text-lg">{title}</h3>}
+            {title && <h3 className="text-xl">{title}</h3>}
             <FaTimes   onClick={onClose}
               className="font-semibold ml-auto cursor-pointer hover:scale-110"/>
           </div>
-          {title &&   <div className="divider divider-neutral my-0" /> }
+          {title &&   <div className="divider my-0" /> }
           {children}
         </div>
         <div className="modal-backdrop" onClick={onClose} />

@@ -15,6 +15,7 @@ import {
 
 import { handleApiError } from "@/utils/helpers/handleApiError";
 import { authService } from "@/service/auth.service";
+import FormComponent from "@/components/FormComponent";
 const Login = () => {
   const {
     register,
@@ -51,7 +52,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-bg-secondary">
       <div className="shadow-lg rounded p-8 w-full max-w-md bg-bg-primary">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+        <FormComponent onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label htmlFor="email" className="form-label">
               Email
@@ -87,7 +88,7 @@ const Login = () => {
           >
             Login
           </button>
-        </form>
+        </FormComponent>
         <p className="mt-6 text-center text-text-secondary">
           Don't have an account?{" "}
           <Link

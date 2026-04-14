@@ -22,7 +22,7 @@ interface PageHeaderWithBackButton extends PageHeaderProps {
 
 export const PageHeader = ({ title }: PageHeaderProps) => {
   return (
-    <h1 className="text-xl font-semibold capitalize">
+    <h1 className="text-xl capitalize">
       {title}
     </h1>
   );
@@ -60,7 +60,7 @@ export const PageHeaderWithBackButton = (props: PageHeaderWithBackButton) => {
     <div className="w-full gap-4 flex items-center">
       <Link
         to={backPath}
-        className="border-2 p-2 rounded-lg border-border-primary transform duration-300 ease-in-out hover:bg-(--color-bg-bg-secondary)"
+        className="border-2 p-2 rounded-lg border-border-primary transform duration-300 ease-in-out hover:scale-110"
       >
         <FaChevronLeft />
       </Link>
