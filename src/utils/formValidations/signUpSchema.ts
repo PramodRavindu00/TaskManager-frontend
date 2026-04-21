@@ -4,11 +4,11 @@ export const signUpSchema = z
   .object({
     firstName: z
       .string()
-      .min(1, "First name is required")
+      .min(1, "First Name is required")
       .regex(/^[A-Za-z]+$/, "First name must contain letters only"),
     lastName: z
       .string()
-      .min(1, "Last name is required")
+      .min(1, "Last Name is required")
       .regex(/^[A-Za-z]+$/, "Last name must contain letters only"),
     email: z
       .string()

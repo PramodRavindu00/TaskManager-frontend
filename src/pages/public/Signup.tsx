@@ -9,6 +9,7 @@ import api from "@/utils/axios/apiUtil";
 import { handleApiError } from "@/utils/helpers/handleApiError";
 import { toast } from "sonner";
 import FormComponent from "@/components/FormComponent";
+import FormField from "@/components/FormField";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -36,87 +37,83 @@ const Signup = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">SignUp</h1>
         <FormComponent onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group-row">
-            <div className="form-group">
-              <label htmlFor="firstName" className="form-label">
-                First Name
-              </label>
-              <input
-                type="text"
-                {...register("firstName")}
-                placeholder="First Name"
-                className={`form-input ${
-                  errors.firstName && "form-input-error"
-                }`}
-              />
-              {errors.firstName && (
-                <p className="form-error">{errors.firstName.message}</p>
+            <FormField
+              label="First Name"
+              name="firstName"
+              placeholder="First Name"
+              register={register}
+              render={({ name, placeholder, register, className }) => (
+                <input
+                  type="text"
+                  {...register(name)}
+                  placeholder={placeholder}
+                  className={className}
+                />
               )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName" className="form-label">
-                Last Name
-              </label>
-              <input
-                type="text"
-                {...register("lastName")}
-                placeholder="Last Name"
-                className={`form-input ${
-                  errors.lastName && "form-input-error"
-                }`}
-              />
-              {errors.lastName && (
-                <p className="form-error">{errors.lastName.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              {...register("email")}
-              placeholder="Email"
-              className={`form-input ${errors.email && "form-input-error"}`}
+              error={errors?.firstName?.message}
             />
-            {errors.email && (
-              <p className="form-error">{errors.email.message}</p>
-            )}
+            <FormField
+              label="Last Name"
+              name="lastName"
+              placeholder="Last Name"
+              register={register}
+              render={({ name, placeholder, register, className }) => (
+                <input
+                  type="text"
+                  {...register(name)}
+                  placeholder={placeholder}
+                  className={className}
+                />
+              )}
+              error={errors?.lastName?.message}
+            />
           </div>
+          <FormField
+            label="Email"
+            name="email"
+            placeholder="Email"
+            register={register}
+            render={({ name, placeholder, register, className }) => (
+              <input
+                type="email"
+                {...register(name)}
+                placeholder={placeholder}
+                className={className}
+              />
+            )}
+            error={errors?.email?.message}
+          />
           <div className="form-group-row">
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                {...register("password")}
-                placeholder="Password"
-                className={`form-input ${
-                  errors.password && "form-input-error"
-                }`}
-              />
-              {errors.password && (
-                <p className="form-error">{errors.password.message}</p>
+            <FormField
+              label="Password"
+              name="password"
+              placeholder="Password"
+              register={register}
+              render={({ name, placeholder, register, className }) => (
+                <input
+                  type="password"
+                  {...register(name)}
+                  placeholder={placeholder}
+                  className={className}
+                />
               )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                {...register("confirmPassword")}
-                placeholder="Confirm Password"
-                className={`form-input ${
-                  errors.confirmPassword && "form-input-error"
-                }`}
-              />
-              {errors.confirmPassword && (
-                <p className="form-error">{errors.confirmPassword.message}</p>
+              error={errors?.password?.message}
+            />
+            <FormField
+              label="Confirm Password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              register={register}
+              render={({ name, placeholder, register, className }) => (
+                <input
+                  type="password"
+                  {...register(name)}
+                  placeholder={placeholder}
+                  className={className}
+                />
               )}
-            </div>
+              error={errors?.confirmPassword?.message}
+            />
           </div>
           <button
             type="submit"

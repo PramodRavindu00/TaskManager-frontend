@@ -1,4 +1,5 @@
 import FormComponent from "@/components/FormComponent";
+import FormField from "@/components/FormField";
 import { PageHeaderWithBackButton } from "@/components/PageHeader";
 import { taskSchema } from "@/utils/formValidations/taskSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,46 +14,49 @@ const TaskForm = () => {
   } = useForm({
     resolver: zodResolver(taskSchema),
   });
-  return <div className="col-page">
-    <PageHeaderWithBackButton backPath="/tasks" title="Add or Edit"/>
-  
-    <FormComponent onSubmit={()=>console.log("")}>
-          <div className="form-group">
-            <label htmlFor="title" className="form-label">
-              Title
-            </label>
+  return (
+    <div className="col-page">
+      <PageHeaderWithBackButton backPath="/tasks" title="Add or Edit" />
+      <FormComponent onSubmit={() => console.log("")}>
+        <FormField
+          label="Title"
+          name="title"
+          placeholder="Title"
+          register={register}
+          render={({ name, placeholder, register, className }) => (
             <input
               type="text"
-              {...register("title")}
-              placeholder="Title"
-              className={`form-input ${errors.title && "form-input-error"}`}
+              {...register(name)}
+              placeholder={placeholder}
+              className={className}
             />
-            {errors.title && (
-              <p className="form-error">{errors.title.message}</p>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="description" className="form-label">
-              Description
-            </label>
+          )}
+          error={errors?.title?.message}
+        />
+        <FormField
+          label="Description"
+          name="description"
+          placeholder="Description"
+          register={register}
+          render={({ name, placeholder, register, className }) => (
             <textarea
-              {...register("description")}
-              placeholder="Description"
-              className={`form-input ${errors.description && "form-input-error"}`}
+              {...register(name)}
+              placeholder={placeholder}
+              className={className}
             />
-            {errors.description && (
-              <p className="form-error">{errors.description.message}</p>
-            )}
-          </div>
-          <button
-            className="btn-primary w-full"
-            type="submit"
-            disabled={isSubmitting}
-          >
-            Save
-          </button>
-        </FormComponent>
-  </div>;
+          )}
+          error={errors?.description?.message}
+        />
+        <button
+          className="btn-primary w-full"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          Save
+        </button>
+      </FormComponent>
+    </div>
+  );
 };
 
 export default TaskForm;

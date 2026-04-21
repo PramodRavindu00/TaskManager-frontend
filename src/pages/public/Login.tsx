@@ -16,6 +16,7 @@ import {
 import { handleApiError } from "@/utils/helpers/handleApiError";
 import { authService } from "@/service/auth.service";
 import FormComponent from "@/components/FormComponent";
+import FormField from "@/components/FormField";
 const Login = () => {
   const {
     register,
@@ -53,34 +54,36 @@ const Login = () => {
       <div className="shadow-lg rounded p-8 w-full max-w-md bg-bg-primary">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <FormComponent onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              {...register("email")}
-              placeholder="Email"
-              className={`form-input ${errors.email && "form-input-error"}`}
-            />
-            {errors.email && (
-              <p className="form-error">{errors.email.message}</p>
+          <FormField
+            label="Email"
+            name="email"
+            placeholder="Email"
+            register={register}
+            render={({ name, placeholder, register, className }) => (
+              <input
+                type="email"
+                {...register(name)}
+                placeholder={placeholder}
+                className={className}
+              />
             )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              {...register("password")}
-              placeholder="Password"
-              className={`form-input ${errors.password && "form-input-error"}`}
-            />
-            {errors.password && (
-              <p className="form-error">{errors.password.message}</p>
+            error={errors?.email?.message}
+          />
+          <FormField
+            label="Password"
+            name="password"
+            placeholder="Password"
+            register={register}
+            render={({ name, placeholder, register, className }) => (
+              <input
+                type="password"
+                {...register(name)}
+                placeholder={placeholder}
+                className={className}
+              />
             )}
-          </div>
+            error={errors?.password?.message}
+          />
           <button
             className="btn-primary w-full"
             type="submit"
